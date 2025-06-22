@@ -3,13 +3,13 @@ import { FormsModule } from '@angular/forms';
 import { Plant } from '../../interfaces/plant';
 
 @Component({
-    selector: 'app-modal',
+    selector: 'app-watering-modal',
     standalone: true,
     imports: [FormsModule],
-    templateUrl: './modal.component.html',
-    styleUrls: ['./modal.component.scss']
+    templateUrl: './watering-modal.component.html',
+    styleUrls: ['./watering-modal.component.scss']
 })
-export class ModalComponent {
+export class WateringModalComponent {
     @Input() isOpen = false;
     @Input() data!: Plant;
     @Output() modalClose = new EventEmitter<void>();

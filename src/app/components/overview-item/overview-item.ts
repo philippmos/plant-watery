@@ -1,12 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Plant } from '../../interfaces/plant';
-import { ModalComponent } from '../modal/modal.component';
+import { WateringModalComponent } from '../watering-modal/watering-modal.component';
 
 @Component({
     selector: 'app-overview-item',
     standalone: true,
-    imports: [RouterLink, ModalComponent],
+    imports: [RouterLink, WateringModalComponent],
     templateUrl: './overview-item.html',
     styleUrls: ['./overview-item.scss']
 })
