@@ -12,7 +12,7 @@ import { Plant } from '../../interfaces/plant';
 })
 export class Overview {
   private overviewService = inject(OverviewService);
-  readonly items = computed(() => this.overviewService.items());
+  readonly items = computed(() => this.overviewService.getCalculatedItems());
 
   trackByTitle(index: number, item: Plant) {
     return item.title;
