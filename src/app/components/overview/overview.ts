@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { OverviewItem, OverviewItemData } from '../overview-item/overview-item';
+import { OverviewItem } from '../overview-item/overview-item';
 import { OverviewService } from '../../services/overview.service';
 import { computed, inject } from '@angular/core';
+import { OverviewItemData } from '../../interfaces/overview-item-data';
 
 @Component({
   selector: 'app-overview',
