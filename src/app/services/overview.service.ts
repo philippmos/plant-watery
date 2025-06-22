@@ -24,6 +24,13 @@ export class OverviewService {
       lastWateredDate: new Date('2025-06-21'),
       title: 'Bonsai Japanische Feige',
       location: 'Wohnzimmer'
+    },
+    {
+      id: 'a2b3c4d5-e6f7-8901-2345-6789abcdef12',
+      imageUrl: 'https://placehold.co/558x358',
+      lastWateredDate: new Date('2025-06-22'),
+      title: 'Erdbeersaat',
+      location: 'Wohnzimmer'
     }
   ]);
 }
