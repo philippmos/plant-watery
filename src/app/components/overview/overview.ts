@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { OverviewItem } from '../overview-item/overview-item';
 import { OverviewService } from '../../services/overview.service';
 import { computed, inject } from '@angular/core';
-import { OverviewItemData } from '../../interfaces/overview-item-data';
+import { Plant } from '../../interfaces/plant';
 
 @Component({
   selector: 'app-overview',
@@ -14,7 +14,7 @@ export class Overview {
   private overviewService = inject(OverviewService);
   readonly items = computed(() => this.overviewService.items());
 
-  trackByTitle(index: number, item: OverviewItemData) {
+  trackByTitle(index: number, item: Plant) {
     return item.title;
   }
 }

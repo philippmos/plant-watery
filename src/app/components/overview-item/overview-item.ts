@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { OverviewItemData } from '../../interfaces/overview-item-data';
+import { Plant } from '../../interfaces/plant';
 
 @Component({
   selector: 'app-overview-item',
@@ -11,7 +11,7 @@ import { OverviewItemData } from '../../interfaces/overview-item-data';
   styleUrls: ['./overview-item.scss']
 })
 export class OverviewItem {
-  @Input() data!: OverviewItemData;
+  @Input() data!: Plant;
 
   get plantLink(): string {
     return `/plants/${this.data.id}`;
