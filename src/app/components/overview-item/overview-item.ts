@@ -1,16 +1,19 @@
 import { Component, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Plant } from '../../interfaces/plant';
+import { ModalComponent } from '../modal/modal.component';
 
 @Component({
     selector: 'app-overview-item',
     standalone: true,
-    imports: [RouterLink],
+    imports: [RouterLink, ModalComponent],
     templateUrl: './overview-item.html',
     styleUrls: ['./overview-item.scss']
 })
 export class OverviewItem {
     @Input() data!: Plant;
+
+    isModalOpen = false;
 
     get plantLink(): string {
         return `/plants/${this.data.id}`;
@@ -32,11 +35,11 @@ export class OverviewItem {
         });
     }
 
-    updateLastWatered() {
-        this.data.waterHistory.push({
-            id: (Math.random() * 1000000).toString(),
-            dateTime: new Date(),
-            comment: 'Gut gegossen'
-        });
+    openModal() {
+        this.isModalOpen = true;
+    }
+
+    closeModal() {
+        this.isModalOpen = false;
     }
 }

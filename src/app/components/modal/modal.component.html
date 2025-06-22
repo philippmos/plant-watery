@@ -1,0 +1,15 @@
+@if (isOpen) {
+    <div class="fixed inset-0 flex items-center justify-center bg-gray-900/75">
+        <div class="bg-white rounded-lg shadow-lg p-6 w-96">
+            <h2 class="text-lg font-semibold mb-4">{{ data.title }} gießen</h2>
+            <textarea [(ngModel)]="comment" class="w-full h-24 p-2 border rounded-lg"
+                placeholder="Kommentar eingeben"></textarea>
+            <div class="flex justify-end mt-4">
+                <button (click)="onSave()"
+                    class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500">Speichern</button>
+                <button (click)="onClose()"
+                    class="ml-2 px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400">Schließen</button>
+            </div>
+        </div>
+    </div>
+}

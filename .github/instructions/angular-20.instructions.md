@@ -67,3 +67,4 @@ Hier ist eine präzise, strukturierte und sprachmodell-optimierte Zusammenfassun
 * Komponenten typisiert generieren (Inputs, Outputs, Formulare).
 * Build- und Routing-Konfiguration per funktionaler API (`provideX()`) realisieren.
 * Hydration und SSR-Fähigkeit berücksichtigen (z. B. keine browser-only APIs ohne Fallback verwenden).
+* ngif ist deprectated, nicht mehr verwenden, stattdessen `@if` nutzen.

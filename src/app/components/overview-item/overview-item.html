@@ -9,9 +9,9 @@
         <h3 class="text-lg font-semibold text-white mb-1">{{ data.title }}</h3>
     </div>
     <div class="overflow-hidden flex flex-row">
-        <span (click)="updateLastWatered()"
-            (keyup.enter)="updateLastWatered()"
-            (keyup.space)="updateLastWatered()"
+        <span (click)="openModal()"
+            (keyup.enter)="openModal()"
+            (keyup.space)="openModal()"
             tabindex="0"
             role="button"
             class="inline-flex items-center justify-center w-1/2 px-4 py-4 text-sm font-semibold bg-blue-700/100 text-white hover:bg-blue-600 focus-visible:ring-2 focus-visible:ring-blue-400 shadow-lg cursor-pointer">
@@ -23,3 +23,5 @@
         </a>
     </div>
 </div>
+
+<app-modal [isOpen]="isModalOpen" [data]="data" (modalClose)="closeModal()"></app-modal>
