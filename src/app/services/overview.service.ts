@@ -88,4 +88,8 @@ export class OverviewService {
             return item;
         });
     }
+
+    getPlantById(id: string): Plant | undefined {
+        return this.items().find(plant => plant.id === id);
+    }
 }

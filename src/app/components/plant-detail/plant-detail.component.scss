@@ -1,0 +1,32 @@
+.plant-detail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+
+    li {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+  }
+}

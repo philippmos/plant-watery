@@ -1,0 +1,25 @@
+@if(plant) {
+    <div class="plant-detail">
+        <h1>{{ plant.title }}</h1>
+        <img [src]="plant.imageUrl" alt="{{ plant.title }}">
+        <p>Standort: {{ plant.location.name }}</p>
+
+        <h2>Historie</h2>
+        <ul>
+            @if(plant.waterHistory && plant.waterHistory.length > 0) {
+                @for(history of plant.waterHistory; track history.id) {
+                    <li>
+                        {{ history.dateTime | date:'dd.MM.yyyy HH:mm' }} Uhr - {{ history.comment || 'Kein Kommentar' }}
+                    </li>
+                }
+            } @else {
+                <li>Keine Einträge.</li>
+            }
+        </ul>
+    </div>
+}
+@else {
+    <div>
+        <p>Pflanze nicht gefunden.</p>
+    </div>
+}
