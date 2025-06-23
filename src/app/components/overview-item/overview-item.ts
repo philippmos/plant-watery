@@ -1,16 +1,20 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Plant } from '../../interfaces/plant';
 import { WateringModalComponent } from '../watering-modal/watering-modal.component';
+import { AuthService } from '@auth0/auth0-angular';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
     selector: 'app-overview-item',
     standalone: true,
-    imports: [RouterLink, WateringModalComponent],
+    imports: [RouterLink, WateringModalComponent, AsyncPipe],
     templateUrl: './overview-item.html',
     styleUrls: ['./overview-item.scss']
 })
 export class OverviewItem {
+    protected auth: AuthService = inject(AuthService);
+
     @Input() data!: Plant;
 
     isModalOpen = false;

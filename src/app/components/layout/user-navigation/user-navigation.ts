@@ -10,5 +10,5 @@ import { AsyncPipe } from '@angular/common';
   templateUrl: './user-navigation.html'
 })
 export class UserNavigation {
-  public auth: AuthService = inject(AuthService);
+  protected auth: AuthService = inject(AuthService);
 }
