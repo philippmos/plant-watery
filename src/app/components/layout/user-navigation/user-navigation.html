@@ -1,0 +1,17 @@
+@if(auth.isAuthenticated$ | async) {
+    @let user = auth.user$ | async;
+
+    <div class="relative group">
+        <button
+            class="text-white px-2 py-2 bg-gray-800 hover:bg-gray-700 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+            <img src="{{ user?.picture }}" alt="User Avatar" class="w-10 h-10 rounded-full inline-block" />
+        </button>
+        
+        <div class="absolute hidden group-hover:block bg-gray-700 text-white rounded-md">
+            <button (click)="auth.logout()" class="block px-4 py-2 hover:bg-gray-600 cursor-pointer">Abmelden</button>
+        </div>
+    </div>
+}
+@else {
+    <app-auth-button />
+}

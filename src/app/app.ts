@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Navigation } from "./layout/navigation/navigation";
-import { PageHeader } from './layout/page-header/page-header';
+import { Navigation } from "./components/layout/navigation/navigation";
+import { PageHeader } from "./components/layout/page-header/page-header";
 
 @Component({
   selector: 'app-root',
@@ -9,7 +9,7 @@ import { PageHeader } from './layout/page-header/page-header';
     RouterOutlet,
     Navigation,
     PageHeader
-  ],
+],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
