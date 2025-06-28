@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { OverviewService } from '../../services/overview.service';
-import { Plant } from '../../interfaces/plant';
+import { PlantService } from '../../services/plant.service';
 import { DatePipe } from '@angular/common';
+import { Plant } from '../../interfaces/plant';
 
 @Component({
   selector: 'app-plant-detail',
@@ -13,7 +13,7 @@ import { DatePipe } from '@angular/common';
 })
 export class PlantDetailComponent {
   private route = inject(ActivatedRoute);
-  private overviewService = inject(OverviewService);
+  private overviewService = inject(PlantService);
 
   plant: Plant | undefined;
 

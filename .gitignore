@@ -42,3 +42,5 @@ testem.log
 Thumbs.db
 
 auth_config.json
+public/images/*
+public/data/*

@@ -1,9 +1,9 @@
 import { Component, inject, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Plant } from '../../interfaces/plant';
 import { WateringModalComponent } from '../watering-modal/watering-modal.component';
 import { AuthService } from '@auth0/auth0-angular';
 import { AsyncPipe } from '@angular/common';
+import { Plant } from '../../interfaces/plant';
 
 @Component({
     selector: 'app-overview-item',

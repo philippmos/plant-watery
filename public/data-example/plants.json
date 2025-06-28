@@ -1,0 +1,19 @@
+[
+    {
+        "id": "",
+        "imageUrl": "/images/<plant:id>.jpg",
+        "title": "",
+        "locationId": "<location:id>",
+        "waterHistory": [
+            {
+                "id": "1",
+                "dateTime": "2025-06-21T10:00:00Z",
+                "comment": ""
+            },
+            {
+                "id": "2",
+                "dateTime": "2025-06-20T10:00:00Z"
+            }
+        ]
+    }
+]

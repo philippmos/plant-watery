@@ -77,6 +77,11 @@
           "defaultConfiguration": "production"
         },
         "serve": {
+          "options": {
+            "host": "0.0.0.0",
+            "ssl": true,
+            "hmr": false
+          },
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {

@@ -1,10 +1,10 @@
-import { PlantLocation } from "./plant-location";
-import { WaterHistoryItem } from "./water-history-item";
+import { WaterHistoryItem } from './water-history-item';
 
 export interface Plant {
     id: string;
     imageUrl: string;
     title: string;
-    location: PlantLocation;
+    locationId: string;
+    locationName?: string; // TODO: Split proper Dto
     waterHistory: WaterHistoryItem[];
 }
