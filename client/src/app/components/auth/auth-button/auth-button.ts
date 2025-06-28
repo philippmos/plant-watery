@@ -7,5 +7,13 @@ import { AuthService } from '@auth0/auth0-angular';
   templateUrl: './auth-button.html'
 })
 export class AuthButton {
-  protected auth: AuthService = inject(AuthService);
+  private auth: AuthService = inject(AuthService);
+
+  protected loginWithRedirect() {
+    this.auth.loginWithRedirect({
+      authorizationParams: {
+        audience: 'http://plant-watery.local',
+      }
+    });
+  }
 }
