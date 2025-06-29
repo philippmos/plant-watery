@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/PlantWatery.Api/PlantWatery.Api.csproj" />
+    <Project Path="src/PlantWatery.Application/PlantWatery.Application.csproj" Id="7d4831de-3b36-4fcb-9006-199aedb6476a" />
+    <Project Path="src/PlantWatery.Domain/PlantWatery.Domain.csproj" Id="7f92dda6-6b14-4e63-baab-55cecffdfabd" />
+    <Project Path="src/PlantWatery.Infrastructure/PlantWatery.Infrastructure.csproj" Id="8137afae-d8d4-4db7-9a7a-cb7376a6905c" />
+  </Folder>
+</Solution>
