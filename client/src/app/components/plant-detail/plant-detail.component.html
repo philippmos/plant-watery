@@ -1,25 +1,24 @@
-@if(plant) {
-    <div class="plant-detail">
-        <h1>{{ plant.title }}</h1>
-        <img [src]="plant.imageUrl" alt="{{ plant.title }}">
-        <p>Standort: {{ plant.locationName }}</p>
+@if (plant() | async; as plantDetail) {
+    <div class="plant-detail container mx-auto p-4">
+        <h1 class="text-2xl font-bold mb-2">{{ plantDetail.title }}</h1>
+        <img class="w-full max-w-xs rounded shadow mb-4" [src]="plantDetail.imageUrl" alt="{{ plantDetail.title }}">
+        <p class="mb-4">Standort: <span class="font-semibold">{{ plantDetail.locationName }}</span></p>
 
-        <h2>Historie</h2>
-        <ul>
-            @if(plant.waterHistory && plant.waterHistory.length > 0) {
-                @for(history of plant.waterHistory; track history.id) {
-                    <li>
-                        {{ history.dateTime | date:'dd.MM.yyyy HH:mm' }} Uhr - {{ history.comment || 'Kein Kommentar' }}
-                    </li>
-                }
+        <h2 class="text-xl font-semibold mt-6 mb-2">Gieß-Historie</h2>
+        <ul class="list-disc pl-5">
+            @if(plantDetail.wateringEvents && plantDetail.wateringEvents.length > 0) {
+            @for(event of plantDetail.wateringEvents; track event.id) {
+            <li class="mb-1">
+                {{ event.dateTime | date:'dd.MM.yyyy HH:mm' }} Uhr – {{ event.comment || 'Kein Kommentar' }}
+            </li>
+            }
             } @else {
-                <li>Keine Einträge.</li>
+            <li>Keine Einträge.</li>
             }
         </ul>
     </div>
-}
-@else {
-    <div>
+} @else {
+    <div class="container mx-auto p-4">
         <p>Pflanze nicht gefunden.</p>
     </div>
 }

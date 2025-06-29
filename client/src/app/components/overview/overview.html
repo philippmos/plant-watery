@@ -1,5 +1,5 @@
 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-  @for (item of items(); track item.title) {
+  @for (item of items() | async; track item.title) {
     <app-overview-item [data]="item"></app-overview-item>
   }
 </div>

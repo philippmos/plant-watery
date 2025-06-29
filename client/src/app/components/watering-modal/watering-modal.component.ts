@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Plant } from '../../interfaces/plant';
+import { PlantOverview } from '../../interfaces/plant-overview';
 
 @Component({
     selector: 'app-watering-modal',
@@ -11,19 +11,12 @@ import { Plant } from '../../interfaces/plant';
 })
 export class WateringModalComponent {
     @Input() isOpen = false;
-    @Input() data!: Plant;
+    @Input() data!: PlantOverview;
     @Output() modalClose = new EventEmitter<void>();
 
     comment = '';
 
     onSave() {
-        const newHistoryItem = {
-            id: crypto.randomUUID(),
-            dateTime: new Date(),
-            comment: this.comment
-        };
-
-        this.data.waterHistory.push(newHistoryItem);
         this.modalClose.emit();
     }
 

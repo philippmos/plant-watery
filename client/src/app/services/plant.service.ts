@@ -1,53 +1,47 @@
-import { Injectable, signal, inject } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
-import { Plant } from '../interfaces/plant';
+import { PlantOverview } from '../interfaces/plant-overview';
 import { environment as env } from '../../environments/environment';
+import { PlantDetail } from '../interfaces/plant-detail';
 
 @Injectable({ providedIn: 'root' })
 export class PlantService {
     private readonly http = inject(HttpClient);
-    private readonly items = signal<Plant[]>([]);
     private readonly plantApiUrl = env.plantApiUrl;
 
-    constructor() {
-        this.loadPlants();
-    }
-
-    private async loadPlants(): Promise<void> {
-        const plantData = await firstValueFrom(this.http.get<Plant[]>(this.plantApiUrl));
+    public async getAllPlants(): Promise<PlantOverview[]> {
+        const plantData = await firstValueFrom(this.http.get<PlantOverview[]>(this.plantApiUrl));
 
         if (!plantData) {
-            return;
+            return [];
         }
 
-        const plants: Plant[] = plantData.map(data => ({
-            ...data,
-            waterHistory: data.waterHistory?.map(item => ({
-                ...item,
-                dateTime: new Date(item.dateTime)
-            })) ?? []
+        const plants: PlantOverview[] = plantData.map(data => ({
+            ...data
         }));
 
-        this.items.set(plants);
+        return plants;
     }
 
-    public getCalculatedItems(): Plant[] {
-        return this.items().map(item => {
-            if (item.waterHistory && item.waterHistory.length > 0) {
-                const latestEntry = item.waterHistory.reduce((latest, current) =>
-                    current.dateTime > latest.dateTime ? current : latest
-                );
-                return {
-                    ...item,
-                    lastWatered: latestEntry.dateTime
-                };
+    public async getPlantById(id: string): Promise<PlantDetail | undefined> {
+        try {
+            const url = `${this.plantApiUrl}/${id}`;
+            const data = await firstValueFrom(this.http.get<PlantDetail>(url));
+            if (!data) {
+                return undefined;
             }
-            return item;
-        });
-    }
 
-    getPlantById(id: string): Plant | undefined {
-        return this.items().find(plant => plant.id === id);
+            return {
+                ...data,
+                wateringEvents: data.wateringEvents?.map(e => ({
+                    ...e,
+                    dateTime: new Date(e.dateTime)
+                })) ?? []
+            };
+        } catch (e) {
+            console.error('Error fetching plant details:', e);
+            return undefined;
+        }
     }
 }

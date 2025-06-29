@@ -2,19 +2,20 @@ import { Component } from '@angular/core';
 import { OverviewItem } from '../overview-item/overview-item';
 import { PlantService } from '../../services/plant.service';
 import { computed, inject } from '@angular/core';
-import { Plant } from '../../interfaces/plant';
+import { PlantOverview } from '../../interfaces/plant-overview';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-overview',
-  imports: [OverviewItem],
+  imports: [OverviewItem, AsyncPipe],
   templateUrl: './overview.html',
   styleUrls: ['./overview.scss']
 })
 export class Overview {
-  private overviewService = inject(PlantService);
-  readonly items = computed(() => this.overviewService.getCalculatedItems());
+  private plantService = inject(PlantService);
+  protected readonly items = computed(() => this.plantService.getAllPlants());
 
-  trackByTitle(index: number, item: Plant) {
+  trackByTitle(index: number, item: PlantOverview) {
     return item.title;
   }
 }
