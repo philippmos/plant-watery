@@ -2,7 +2,7 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessC
 import { provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 import { environment as env } from '../environments/environment';
-import {provideAuth0} from '@auth0/auth0-angular';
+import { provideAuth0 } from '@auth0/auth0-angular';
 
 import { routes } from './app.routes';
 

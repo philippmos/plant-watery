@@ -12,6 +12,7 @@ const { domain, clientId, authorizationParams: { audience }, apiUri, errorPath }
 
 export const environment = {
   production: false,
+  plantApiUrl: 'https://localhost:7127/Plants',
   auth: {
     domain,
     clientId,

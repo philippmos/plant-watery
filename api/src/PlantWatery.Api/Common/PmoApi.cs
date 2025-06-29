@@ -9,6 +9,8 @@ public static class PmoApi
     {
         var builder = WebApplication.CreateBuilder(new WebApplicationOptions { Args = args });
 
+        builder.Services.SetupCorsHandling();
+
         builder.Services.AddControllers();
         builder.Services.AddOpenApi();
 
@@ -27,6 +29,8 @@ public static class PmoApi
             app.MapOpenApi("/openapi/openapi.json");
         }
 
+        app.UseCors("AllowClient");
+
         app.UseHttpsRedirection();
 
         app.UseAuthorization();
@@ -34,5 +38,20 @@ public static class PmoApi
         app.MapControllers();
 
         return app;
+    }
+
+    private static IServiceCollection SetupCorsHandling(this IServiceCollection services)
+    {
+        services.AddCors(options =>
+        {
+            options.AddPolicy("AllowClient", policy =>
+            {
+                policy.WithOrigins("https://192.168.178.49:4200")
+                      .AllowAnyHeader()
+                      .AllowAnyMethod();
+            });
+        });
+
+        return services;
     }
 }

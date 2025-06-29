@@ -1,35 +1,21 @@
 import { Injectable, signal, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
-import { PlantLocation } from '../interfaces/plant-location';
 import { Plant } from '../interfaces/plant';
+import { environment as env } from '../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class PlantService {
     private readonly http = inject(HttpClient);
-    private readonly locationMap = signal<Map<string, PlantLocation>>(new Map());
     private readonly items = signal<Plant[]>([]);
+    private readonly plantApiUrl = env.plantApiUrl;
 
     constructor() {
-        this.loadData();
-    }
-
-    private async loadData(): Promise<void> {
-        await this.loadLocations();
-        await this.loadPlants();
-    }
-
-    private async loadLocations(): Promise<void> {
-        const locationData = await firstValueFrom(this.http.get<PlantLocation[]>('/data/plant-locations.json'));
-        
-        if (locationData) {
-            const locationMap = new Map(locationData.map(loc => [loc.id, loc]));
-            this.locationMap.set(locationMap);
-        }
+        this.loadPlants();
     }
 
     private async loadPlants(): Promise<void> {
-        const plantData = await firstValueFrom(this.http.get<Plant[]>('/data/plants.json'));
+        const plantData = await firstValueFrom(this.http.get<Plant[]>(this.plantApiUrl));
 
         if (!plantData) {
             return;
@@ -37,11 +23,10 @@ export class PlantService {
 
         const plants: Plant[] = plantData.map(data => ({
             ...data,
-            locationName: this.locationMap().get(data.locationId)?.name,
-            waterHistory: data.waterHistory.map(item => ({
-            ...item,
-            dateTime: new Date(item.dateTime)
-          }))
+            waterHistory: data.waterHistory?.map(item => ({
+                ...item,
+                dateTime: new Date(item.dateTime)
+            })) ?? []
         }));
 
         this.items.set(plants);
