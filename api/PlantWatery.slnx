@@ -5,4 +5,8 @@
     <Project Path="src/PlantWatery.Domain/PlantWatery.Domain.csproj" Id="7f92dda6-6b14-4e63-baab-55cecffdfabd" />
     <Project Path="src/PlantWatery.Infrastructure/PlantWatery.Infrastructure.csproj" Id="8137afae-d8d4-4db7-9a7a-cb7376a6905c" />
   </Folder>
+  <Folder Name="/test/" />
+  <Folder Name="/test/Architecture/">
+    <Project Path="test/PlantWatery.ArchitectureTests/PlantWatery.ArchitectureTests.csproj" Id="10f781e2-584b-45b9-807a-5ec3012841fa" />
+  </Folder>
 </Solution>
