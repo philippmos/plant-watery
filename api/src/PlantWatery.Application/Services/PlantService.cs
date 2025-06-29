@@ -1,19 +1,15 @@
 ﻿using PlantWatery.Domain.Dtos;
+using PlantWatery.Domain.Interfaces.Repositories;
 using PlantWatery.Domain.Interfaces.Services;
 
 namespace PlantWatery.Application.Services;
 
-public class PlantService() : IPlantService
+public class PlantService(IPlantRepository plantRepo) : IPlantService
 {
     public async Task<IEnumerable<PlantDto>> GetAllPlantsAsync()
     {
-        var plantDtos = new List<PlantDto>
-        {
-            new (Guid.NewGuid(), "Yukka-Palme", "https://placehold.co/558x358", "Arbeitszimmer"),
-            new (Guid.NewGuid(), "Bogenhanf", "https://placehold.co/558x358", "Arbeitszimmer"),
-            new (Guid.NewGuid(), "Aloe Vera", "https://placehold.co/558x358", "Wohnzimmer")
-        };
+        var allPlants = await plantRepo.GetAllWithLocationsAsync();
 
-        return await Task.FromResult(plantDtos);
+        return allPlants.Select(PlantDto.FromEntity);
     }
 }

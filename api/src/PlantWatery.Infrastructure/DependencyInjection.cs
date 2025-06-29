@@ -38,6 +38,7 @@ public static class DependencyInjection
     private static IServiceCollection SetupDatabaseRepositories(this IServiceCollection services)
     {
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+        services.AddScoped<IPlantRepository, PlantRepository>();
 
         return services;
     }
