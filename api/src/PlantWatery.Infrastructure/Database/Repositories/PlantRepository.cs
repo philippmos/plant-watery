@@ -6,8 +6,11 @@ namespace PlantWatery.Infrastructure.Database.Repositories;
 
 public class PlantRepository(DatabaseContext dbContext) : Repository<Plant>(dbContext), IPlantRepository
 {
+    public async Task<Plant?> GetByIdAsync(Guid id)
+        => await DbContext.Plants
+            .Include(p => p.Location)
+            .FirstOrDefaultAsync(p => p.Id == id);
+
     public async Task<IEnumerable<Plant>> GetAllWithLocationsAsync()
-    {
-        return await DbContext.Plants.Include(p => p.Location).ToListAsync();
-    }
+        => await DbContext.Plants.Include(p => p.Location).ToListAsync();
 }

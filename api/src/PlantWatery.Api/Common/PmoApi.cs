@@ -24,7 +24,7 @@ public static class PmoApi
 
         if (app.Environment.IsDevelopment())
         {
-            app.MapOpenApi();
+            app.MapOpenApi("/openapi/openapi.json");
         }
 
         app.UseHttpsRedirection();

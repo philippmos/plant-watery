@@ -17,8 +17,4 @@
     <ProjectReference Include="..\PlantWatery.Infrastructure\PlantWatery.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\Plants\Request\" />
-  </ItemGroup>
-
 </Project>
