@@ -3,7 +3,5 @@
 public record PlantDto(
     Guid Id,
     string Title,
-    string ImageUrl)
-{
-
-}
+    string ImageUrl,
+    string LocationName);

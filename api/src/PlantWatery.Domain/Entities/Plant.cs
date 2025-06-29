@@ -7,6 +7,6 @@ public class Plant
     public string ImageUrl {  get; set; } = string.Empty;
 
     public virtual Location Location { get; set; } = default!;
-    public virtual IEnumerable<WateringEvent> WateringEvents { get; set; } = [];
+    public virtual IEnumerable<WateringEvent>? WateringEvents { get; set; }
 
 }

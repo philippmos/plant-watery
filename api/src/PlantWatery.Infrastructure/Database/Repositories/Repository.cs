@@ -8,23 +8,26 @@ public class Repository<T>(DatabaseContext dbContext) : IRepository<T> where T :
     protected readonly DatabaseContext DbContext = dbContext;
     protected readonly DbSet<T> DbSet = dbContext.Set<T>();
 
-    public void Add(T entity)
+    public async Task AddAsync(T entity)
     {
-        DbSet.Add(entity);
-        DbContext.SaveChanges();
+        await DbSet.AddAsync(entity);
+        await DbContext.SaveChangesAsync();
     }
-    public void Update(T entity)
+
+    public async Task UpdateAsync(T entity)
     {
         DbSet.Update(entity);
-        DbContext.SaveChanges();
+        await DbContext.SaveChangesAsync();
     }
-    public void Delete(T entity)
+
+    public async Task DeleteAsync(T entity)
     {
         DbSet.Remove(entity);
-        DbContext.SaveChanges();
+        await DbContext.SaveChangesAsync();
     }
-    public IQueryable<T> GetAll()
+
+    public async Task<IEnumerable<T>> GetAllAsync()
     {
-        return DbSet;
+        return await DbSet.ToListAsync();
     }
 }
