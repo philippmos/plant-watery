@@ -8,5 +8,4 @@ public class Plant
 
     public virtual Location Location { get; set; } = default!;
     public virtual IEnumerable<WateringEvent>? WateringEvents { get; set; }
-
 }
