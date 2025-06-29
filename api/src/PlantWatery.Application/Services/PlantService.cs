@@ -11,24 +11,25 @@ public class PlantService(
     IRepository<WateringEvent> wateringRepo,
     ILogger<PlantService> logger) : IPlantService
 {
-    public async Task<PlantDto?> GetPlantByIdAsync(Guid id)
+    public async Task<PlantDetailDto?> GetPlantForDetailsByIdAsync(Guid id)
     {
-        var plant = await plantRepo.GetByIdAsync(id);
+        var plant = await plantRepo.GetByIdWithAllIncludesAsync(id);
+
         return plant is null 
             ? null 
-            : PlantDto.FromEntity(plant);
+            : PlantDetailDto.FromEntity(plant);
     }
 
-    public async Task<IEnumerable<PlantDto>> GetAllPlantsAsync()
+    public async Task<IEnumerable<PlantOverviewDto>> GetAllPlantsForOverviewAsync()
     {
-        var allPlants = await plantRepo.GetAllWithLocationsAsync();
+        var allPlants = await plantRepo.GetAllWithLocationsAndLatestWateringEventAsync();
 
-        return allPlants.Select(PlantDto.FromEntity);
+        return allPlants.Select(PlantOverviewDto.FromEntity);
     }
 
-    public async Task<bool> CreateWateringAsync(Guid plantId, WateringDto wateringDto)
+    public async Task<bool> CreateWateringAsync(Guid plantId, CreateWateringDto wateringDto)
     {
-        var plant = await plantRepo.GetByIdAsync(plantId);
+        var plant = await plantRepo.GetByIdWithAllIncludesAsync(plantId);
 
         if (plant is null)
         {

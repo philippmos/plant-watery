@@ -4,8 +4,7 @@ namespace PlantWatery.Domain.Interfaces.Services;
 
 public interface IPlantService
 {
-    Task<PlantDto?> GetPlantByIdAsync(Guid id);
-    Task<IEnumerable<PlantDto>> GetAllPlantsAsync();
-
-    Task<bool> CreateWateringAsync(Guid plantId, WateringDto wateringDto);
+    Task<PlantDetailDto?> GetPlantForDetailsByIdAsync(Guid id);
+    Task<IEnumerable<PlantOverviewDto>> GetAllPlantsForOverviewAsync();
+    Task<bool> CreateWateringAsync(Guid plantId, CreateWateringDto wateringDto);
 }

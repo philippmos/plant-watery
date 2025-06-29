@@ -12,29 +12,29 @@ public class PlantsController(
     ILogger<PlantsController> logger) : ApiControllerBase
 {
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<PlantResponse>>> GetAll()
+    public async Task<ActionResult<IEnumerable<PlantOverviewResponse>>> GetAll()
     {
-        var results = await plantService.GetAllPlantsAsync();
+        var results = await plantService.GetAllPlantsForOverviewAsync();
 
-        return Ok(results.Select(PlantResponse.FromDto));
+        return Ok(results.Select(PlantOverviewResponse.FromDto));
     }
 
     [HttpGet("{plantId}")]
-    public async Task<ActionResult<PlantResponse>> Get(Guid plantId)
+    public async Task<ActionResult<PlantDetailResponse>> Get(Guid plantId)
     {
-        var result = await plantService.GetPlantByIdAsync(plantId);
+        var result = await plantService.GetPlantForDetailsByIdAsync(plantId);
 
         if (result is null)
         {
             return NotFound();
         }
 
-        return Ok(PlantResponse.FromDto(result));
+        return Ok(PlantDetailResponse.FromDto(result));
     }
 
 
-    [HttpPost("{plantId}/waterings)")]
-    public async Task<IActionResult> CreateWatering(Guid plantId, [FromBody] CreateWateringRequest request)
+    [HttpPost("{plantId}/waterings")]
+    public async Task<IActionResult> CreateWateringForPlant(Guid plantId, [FromBody] CreateWateringRequest request)
     {
         var result = await plantService.CreateWateringAsync(plantId, new (request.Comment));
 

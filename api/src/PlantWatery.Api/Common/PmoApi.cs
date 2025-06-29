@@ -44,12 +44,10 @@ public static class PmoApi
     {
         services.AddCors(options =>
         {
-            options.AddPolicy("AllowClient", policy =>
-            {
-                policy.WithOrigins("https://192.168.178.49:4200")
+            options.AddPolicy("AllowClient", policy 
+                => policy.WithOrigins("https://192.168.178.49:4200")
                       .AllowAnyHeader()
-                      .AllowAnyMethod();
-            });
+                      .AllowAnyMethod());
         });
 
         return services;
