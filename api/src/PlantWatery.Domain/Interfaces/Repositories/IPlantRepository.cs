@@ -4,6 +4,6 @@ namespace PlantWatery.Domain.Interfaces.Repositories;
 
 public interface IPlantRepository : IRepository<PlantEntity>
 {
-    Task<PlantEntity?> GetByIdWithAllIncludesAsync(Guid id);
-    Task<IEnumerable<PlantEntity>> GetAllWithLocationsAndLatestWateringEventAsync();
+    Task<PlantEntity?> GetByIdForUserWithAllAsync(Guid id, string userSub);
+    Task<IEnumerable<PlantEntity>> GetAllByUserWithAllAsync(string userSub);
 }

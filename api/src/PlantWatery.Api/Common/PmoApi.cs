@@ -54,29 +54,30 @@ public static class PmoApi
         IdentityModelEventSource.ShowPII = true;
         IdentityModelEventSource.LogCompleteSecurityArtifact = true;
 
-        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-        .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
-        {
-            options.Authority = configuration["Auth:Authority"] ?? "";
-            options.Audience = configuration["Auth:Audience"] ?? "";
-
-            options.TokenValidationParameters = new()
+        services
+            .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
             {
-                ValidateIssuer = false,
-                ValidIssuer = configuration["Auth:ValidIssuer"] ?? "",
-                ValidateAudience = false,
-                ValidateLifetime = false
-            };
+                options.Authority = configuration["Auth:Authority"] ?? "";
+                options.Audience = configuration["Auth:Audience"] ?? "";
 
-            options.Events = new JwtBearerEvents
-            {
-                OnAuthenticationFailed = context =>
+                options.TokenValidationParameters = new()
                 {
-                    Console.WriteLine($"Authentication failed: {context.Exception.Message}");
-                    return Task.CompletedTask;
-                }
-            };
-        });
+                    ValidateIssuer = true,
+                    ValidIssuer = configuration["Auth:ValidIssuer"] ?? "",
+                    ValidateAudience = true,
+                    ValidateLifetime = true
+                };
+
+                options.Events = new JwtBearerEvents
+                {
+                    OnAuthenticationFailed = context =>
+                    {
+                        Console.WriteLine($"Authentication failed: {context.Exception.Message}");
+                        return Task.CompletedTask;
+                    }
+                };
+            });
 
         return services;
     }
