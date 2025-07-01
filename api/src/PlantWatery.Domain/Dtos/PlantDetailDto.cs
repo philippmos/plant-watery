@@ -1,4 +1,4 @@
-﻿using PlantWatery.Domain.Entities;
+using PlantWatery.Domain.Entities;
 
 namespace PlantWatery.Domain.Dtos;
 
@@ -9,7 +9,7 @@ public record PlantDetailDto(
     string LocationName,
     IEnumerable<WateringEventDto> WateringEvents)
 {
-    public static PlantDetailDto FromEntity(Plant entity)
+    public static PlantDetailDto FromEntity(PlantEntity entity)
         => new(
             entity.Id,
             entity.Title,

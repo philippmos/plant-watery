@@ -1,21 +1,21 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using PlantWatery.Domain.Entities;
 using PlantWatery.Domain.Interfaces.Repositories;
 
 namespace PlantWatery.Infrastructure.Database.Repositories;
 
-public class PlantRepository(DatabaseContext dbContext) : Repository<Plant>(dbContext), IPlantRepository
+public class PlantRepository(DatabaseContext dbContext) : Repository<PlantEntity>(dbContext), IPlantRepository
 {
-    private IQueryable<Plant> PlantsWithLocationAndWateringEvents =>
+    private IQueryable<PlantEntity> PlantsWithLocationAndWateringEvents =>
         DbContext.Plants
             .Include(p => p.Location)
             .Include(p => p.WateringEvents);
 
-    public async Task<Plant?> GetByIdWithAllIncludesAsync(Guid id)
+    public async Task<PlantEntity?> GetByIdWithAllIncludesAsync(Guid id)
         => await PlantsWithLocationAndWateringEvents
             .FirstOrDefaultAsync(p => p.Id == id);
 
-    public async Task<IEnumerable<Plant>> GetAllWithLocationsAndLatestWateringEventAsync()
+    public async Task<IEnumerable<PlantEntity>> GetAllWithLocationsAndLatestWateringEventAsync()
         => await PlantsWithLocationAndWateringEvents
             .ToListAsync();
 }

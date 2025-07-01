@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;
 using PlantWatery.Domain.Dtos;
 using PlantWatery.Domain.Entities;
 using PlantWatery.Domain.Interfaces.Repositories;
@@ -8,7 +8,7 @@ namespace PlantWatery.Application.Services;
 
 public class PlantService(
     IPlantRepository plantRepo,
-    IRepository<WateringEvent> wateringRepo,
+    IRepository<WateringEventEntity> wateringRepo,
     ILogger<PlantService> logger) : IPlantService
 {
     public async Task<PlantDetailDto?> GetPlantForDetailsByIdAsync(Guid id)
@@ -37,7 +37,7 @@ public class PlantService(
             return false;
         }
 
-        var wateringEvent = new WateringEvent
+        var wateringEvent = new WateringEventEntity
         {
             Id = Guid.NewGuid(),
             Comment = wateringDto.Comment,
