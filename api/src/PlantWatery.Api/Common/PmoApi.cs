@@ -1,5 +1,8 @@
-﻿using PlantWatery.Application;
+using PlantWatery.Application;
 using PlantWatery.Infrastructure;
+using PlantWatery.Domain.Interfaces;
+using Microsoft.IdentityModel.Logging;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace PlantWatery.Api.Common;
 
@@ -14,8 +17,12 @@ public static class PmoApi
         builder.Services.AddControllers();
         builder.Services.AddOpenApi();
 
+        builder.Services.AddAuth(builder.Configuration);
+
         builder.Services.AddApplicationLayer();
         builder.Services.AddInfrastructureLayer();
+
+        builder.Services.AddHttpContextAccessor();
 
         return builder;
     }
@@ -38,6 +45,40 @@ public static class PmoApi
         app.MapControllers();
 
         return app;
+    }
+
+    private static IServiceCollection AddAuth(this IServiceCollection services, IConfigurationManager configuration)
+    {
+        services.AddScoped<IUserContext, UserContext>();
+
+        IdentityModelEventSource.ShowPII = true;
+        IdentityModelEventSource.LogCompleteSecurityArtifact = true;
+
+        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+        {
+            options.Authority = configuration["Auth:Authority"] ?? "";
+            options.Audience = configuration["Auth:Audience"] ?? "";
+
+            options.TokenValidationParameters = new()
+            {
+                ValidateIssuer = false,
+                ValidIssuer = configuration["Auth:ValidIssuer"] ?? "",
+                ValidateAudience = false,
+                ValidateLifetime = false
+            };
+
+            options.Events = new JwtBearerEvents
+            {
+                OnAuthenticationFailed = context =>
+                {
+                    Console.WriteLine($"Authentication failed: {context.Exception.Message}");
+                    return Task.CompletedTask;
+                }
+            };
+        });
+
+        return services;
     }
 
     private static IServiceCollection SetupCorsHandling(this IServiceCollection services)
