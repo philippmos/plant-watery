@@ -2,13 +2,13 @@ import { Component, inject, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { WateringModalComponent } from '../watering-modal/watering-modal.component';
 import { AuthService } from '@auth0/auth0-angular';
-import { AsyncPipe, DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { PlantOverview } from '../../interfaces/plant-overview';
 
 @Component({
     selector: 'app-overview-item',
     standalone: true,
-    imports: [RouterLink, WateringModalComponent, AsyncPipe, DatePipe],
+    imports: [RouterLink, WateringModalComponent, DatePipe],
     templateUrl: './overview-item.html',
     styleUrls: ['./overview-item.scss']
 })

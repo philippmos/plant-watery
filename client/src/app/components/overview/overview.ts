@@ -3,7 +3,7 @@ import { OverviewItem } from '../overview-item/overview-item';
 import { PlantService } from '../../services/plant.service';
 import { PlantOverview } from '../../interfaces/plant-overview';
 import { AuthService } from '@auth0/auth0-angular';
-import { LoginPrompt } from '../login-prompt/login-prompt';
+import { LoginPrompt } from '../layout/login-prompt/login-prompt';
 import { CommonModule } from '@angular/common';
 import { firstValueFrom } from 'rxjs';
 
