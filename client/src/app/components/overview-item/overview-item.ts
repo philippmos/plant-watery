@@ -2,18 +2,19 @@ import { Component, inject, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { WateringModalComponent } from '../watering-modal/watering-modal.component';
 import { AuthService } from '@auth0/auth0-angular';
-import { DatePipe } from '@angular/common';
 import { PlantOverview } from '../../interfaces/plant-overview';
+import { DateUtils } from '../../utils/date.utils';
 
 @Component({
     selector: 'app-overview-item',
     standalone: true,
-    imports: [RouterLink, WateringModalComponent, DatePipe],
+    imports: [RouterLink, WateringModalComponent],
     templateUrl: './overview-item.html',
     styleUrls: ['./overview-item.scss']
 })
 export class OverviewItem {
     protected auth: AuthService = inject(AuthService);
+    protected readonly DateUtils = DateUtils;
 
     @Input() data!: PlantOverview;
 
