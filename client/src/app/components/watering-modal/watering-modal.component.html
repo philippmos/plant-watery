@@ -1,7 +1,6 @@
 @if (isOpen) {
     <div class="fixed inset-0 flex items-center justify-center bg-emerald-900/80 backdrop-blur-sm z-50">
         <div class="bg-gradient-to-br from-white to-emerald-50/30 rounded-xl shadow-2xl border border-emerald-200/50 p-8 w-full max-w-md mx-4 backdrop-blur-sm transform transition-all duration-300 ease-out scale-100">
-            <!-- Header mit Icon -->
             <div class="flex items-center space-x-3 mb-6">
                 <div class="flex items-center justify-center w-10 h-10 bg-gradient-to-br from-emerald-600 to-green-700 rounded-lg shadow-lg">
                     <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -11,7 +10,6 @@
                 <h2 class="text-xl font-bold text-emerald-800 tracking-tight">{{ data.title }} gießen</h2>
             </div>
             
-            <!-- Datum und Uhrzeit -->
             <div class="mb-6">
                 <span class="block text-sm font-semibold text-emerald-700 mb-3">Datum und Uhrzeit</span>
                 <div class="flex gap-3">
@@ -30,7 +28,6 @@
                 </div>
             </div>
 
-            <!-- Kommentar -->
             <div class="mb-8">
                 <label for="comment-input" class="block text-sm font-semibold text-emerald-700 mb-3">Kommentar</label>
                 <textarea 
@@ -41,7 +38,6 @@
                 ></textarea>
             </div>
 
-            <!-- Action Buttons -->
             <div class="flex justify-end gap-3">
                 <button 
                     (click)="onClose()"
