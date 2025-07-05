@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PlantOverview } from '../../interfaces/plant-overview';
 import { PlantService } from '../../services/plant.service';
@@ -16,31 +16,48 @@ export class WateringModalComponent {
     @Output() modalClose = new EventEmitter<void>();
 
     private readonly plantService = inject(PlantService);
+    
+    protected readonly isSaving = signal(false);
 
     comment = '';
     selectedDate = '';
     selectedTime = '';
 
     constructor() {
-        // Initialize with current date and time
         const now = new Date();
         this.selectedDate = now.toISOString().split('T')[0];
         this.selectedTime = now.toTimeString().slice(0, 5);
     }
 
     async onSave() {
-        // Combine date and time into a single Date object
-        const dateTime = new Date(`${this.selectedDate}T${this.selectedTime}`);
-        
-        await this.plantService.addWatering(this.data.id, { 
-            comment: this.comment.trim() || undefined,
-            dateTime: dateTime.toISOString()
-        });
+        if (this.isSaving()) {
+            return;
+        }
 
-        this.modalClose.emit();
+        this.isSaving.set(true);
+        
+        try {
+            const dateTime = new Date(`${this.selectedDate}T${this.selectedTime}`);
+            
+            await this.plantService.addWatering(this.data.id, { 
+                comment: this.comment.trim() || undefined,
+                dateTime: dateTime.toISOString()
+            });
+
+            this.onClose();
+        } catch (error) {
+            console.error('Error saving watering:', error);
+        } finally {
+            this.isSaving.set(false);
+        }
     }
 
     onClose() {
+        this.comment = '';
+        const now = new Date();
+        this.selectedDate = now.toISOString().split('T')[0];
+        this.selectedTime = now.toTimeString().slice(0, 5);
+        
         this.modalClose.emit();
     }
 }
