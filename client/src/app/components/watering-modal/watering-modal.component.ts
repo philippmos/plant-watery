@@ -18,10 +18,24 @@ export class WateringModalComponent {
     private readonly plantService = inject(PlantService);
 
     comment = '';
+    selectedDate = '';
+    selectedTime = '';
+
+    constructor() {
+        // Initialize with current date and time
+        const now = new Date();
+        this.selectedDate = now.toISOString().split('T')[0];
+        this.selectedTime = now.toTimeString().slice(0, 5);
+    }
 
     async onSave() {
-
-        await this.plantService.addWatering(this.data.id, { comment: this.comment });
+        // Combine date and time into a single Date object
+        const dateTime = new Date(`${this.selectedDate}T${this.selectedTime}`);
+        
+        await this.plantService.addWatering(this.data.id, { 
+            comment: this.comment.trim() || undefined,
+            dateTime: dateTime.toISOString()
+        });
 
         this.modalClose.emit();
     }

@@ -43,7 +43,7 @@ public class PlantService(
         {
             Id = Guid.NewGuid(),
             Comment = wateringDto.Comment,
-            DateTime = DateTime.UtcNow,
+            DateTime = wateringDto.DateTime,
             Plant = plant
         };
 

@@ -1,3 +1,3 @@
 namespace PlantWatery.Domain.Dtos;
 
-public record CreateWateringDto(string? Comment = null);
+public record CreateWateringDto(DateTime DateTime, string? Comment = null);
