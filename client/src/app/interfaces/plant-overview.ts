@@ -3,5 +3,5 @@ export interface PlantOverview {
     imageUrl: string;
     title: string;
     locationName: string;
-    latestWateringDate?: Date;
+    lastWateredDateTime?: Date;
 }

@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PlantOverview } from '../../interfaces/plant-overview';
+import { PlantService } from '../../services/plant.service';
 
 @Component({
     selector: 'app-watering-modal',
@@ -14,9 +15,14 @@ export class WateringModalComponent {
     @Input() data!: PlantOverview;
     @Output() modalClose = new EventEmitter<void>();
 
+    private readonly plantService = inject(PlantService);
+
     comment = '';
 
-    onSave() {
+    async onSave() {
+
+        await this.plantService.addWatering(this.data.id, { comment: this.comment });
+
         this.modalClose.emit();
     }
 

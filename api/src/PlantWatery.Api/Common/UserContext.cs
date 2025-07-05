@@ -3,16 +3,25 @@ using PlantWatery.Domain.Interfaces;
 
 namespace PlantWatery.Api.Common;
 
-public class UserContext(IHttpContextAccessor accessor) : IUserContext
+public class UserContext(
+    IHttpContextAccessor accessor,
+    ILogger<UserContext> logger) : IUserContext
 {
     public ClaimsPrincipal User => accessor.HttpContext?.User ?? new ClaimsPrincipal();
 
     public string? GetClaim(string claimType)
-        => User.FindFirst(claimType)?.Value;
+    {
+        var claimValue = User.FindFirst(claimType)?.Value;
 
-    public string? GetSub()
-        => GetClaim(ClaimTypes.NameIdentifier);
+        if (string.IsNullOrWhiteSpace(claimValue))
+        {
+            logger.LogWarning("Claim {ClaimType} not found or is empty", claimType);
+            return null;
+        }
 
-    public IEnumerable<Claim> GetClaims(string claimType)
-        => User.FindAll(claimType);
+        return claimValue;
+    }
+
+    public string GetSub()
+        => GetClaim(ClaimTypes.NameIdentifier) ?? string.Empty;
 }

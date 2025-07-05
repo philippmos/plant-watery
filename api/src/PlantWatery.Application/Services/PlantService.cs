@@ -15,15 +15,7 @@ public class PlantService(
 {
     public async Task<PlantDetailDto?> GetPlantForDetailsByIdAsync(Guid id)
     {
-        var userSub = userContext.GetSub();
-
-        if (string.IsNullOrEmpty(userSub))
-        {
-            logger.LogWarning("User Sub is null or empty");
-            return null;
-        }
-
-        var plant = await plantRepo.GetByIdForUserWithAllAsync(id, "");
+        var plant = await plantRepo.GetByIdForUserWithAllAsync(id, userContext.GetSub());
 
         return plant is null 
             ? null 
@@ -32,30 +24,14 @@ public class PlantService(
 
     public async Task<IEnumerable<PlantOverviewDto>> GetAllPlantsForOverviewAsync()
     {
-        var userSub = userContext.GetSub();
-
-        if (string.IsNullOrEmpty(userSub))
-        {
-            logger.LogWarning("User Sub is null or empty");
-            return [];
-        }
-
-        var allPlants = await plantRepo.GetAllByUserWithAllAsync(userSub);
+        var allPlants = await plantRepo.GetAllByUserWithAllAsync(userContext.GetSub());
 
         return allPlants.Select(PlantOverviewDto.FromEntity);
     }
 
     public async Task<bool> CreateWateringAsync(Guid plantId, CreateWateringDto wateringDto)
     {
-        var userSub = userContext.GetSub();
-
-        if (string.IsNullOrEmpty(userSub))
-        {
-            logger.LogWarning("User Sub is null or empty");
-            return false;
-        }
-
-        var plant = await plantRepo.GetByIdForUserWithAllAsync(plantId, "");
+        var plant = await plantRepo.GetByIdForUserWithAllAsync(plantId, userContext.GetSub());
 
         if (plant is null)
         {

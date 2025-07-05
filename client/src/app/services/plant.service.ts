@@ -4,6 +4,7 @@ import { firstValueFrom } from 'rxjs';
 import { PlantOverview } from '../interfaces/plant-overview';
 import { environment as env } from '../../environments/environment';
 import { PlantDetail } from '../interfaces/plant-detail';
+import { CreateWateringRequest } from '../interfaces/create-watering-request';
 import { AuthService } from '@auth0/auth0-angular';
 
 @Injectable({ providedIn: 'root' })
@@ -56,6 +57,18 @@ export class PlantService {
         } catch (e) {
             console.error('Error fetching plant details:', e);
             return undefined;
+        }
+    }
+
+    public async addWatering(plantId: string, request: CreateWateringRequest): Promise<void> {
+        try {
+            const headers = await this.getAuthHeaders();
+            const url = `${this.plantApiUrl}/${plantId}/waterings`;
+            
+            await firstValueFrom(this.http.post<void>(url, request, { headers }));
+        } catch (e) {
+            console.error('Error adding watering:', e);
+            throw e;
         }
     }
 }

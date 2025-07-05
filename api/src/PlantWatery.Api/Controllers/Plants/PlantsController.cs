@@ -8,8 +8,7 @@ namespace PlantWatery.Api.Controllers.Plants;
 
 [Route("[controller]")]
 public class PlantsController(
-    IPlantService plantService,
-    ILogger<PlantsController> logger) : ApiControllerBase
+    IPlantService plantService) : ApiControllerBase
 {
     [HttpGet]
     public async Task<ActionResult<IEnumerable<PlantOverviewResponse>>> GetAll()
