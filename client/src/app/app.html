@@ -1,11 +1,13 @@
-<div class="min-h-full">
+<div class="min-h-screen flex flex-col">
   <app-navigation />
 
   <app-page-header [title]="'Dashboard'"></app-page-header>
 
-  <main>
+  <main class="flex-1">
     <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
       <router-outlet></router-outlet>
     </div>
   </main>
+
+  <app-footer />
 </div>
