@@ -41,7 +41,8 @@ export class PlantService {
             }
 
             const plants: PlantOverview[] = plantData.map(data => ({
-                ...data
+                ...data,
+                lastWateredDateTime: data.lastWateredDateTime ? new Date(data.lastWateredDateTime) : undefined
             }));
 
             this._plants.set(plants);
