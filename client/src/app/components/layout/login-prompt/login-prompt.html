@@ -1,0 +1,48 @@
+<div class="min-h-[50vh] flex items-center justify-center p-4">
+    <div class="max-w-md w-full">
+        <div class="bg-white rounded-2xl shadow-lg p-8 text-center">
+
+            <div class="mx-auto w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mb-6">
+                <svg class="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
+                    </path>
+                </svg>
+            </div>
+
+            <h1 class="text-2xl font-bold text-gray-900 mb-2">
+                Willkommen bei PlantWatery
+            </h1>
+
+            <p class="text-gray-600 mb-8">
+                Melden Dich an, um Deine Pflanzen zu verwalten und nie wieder das Gießen zu vergessen!
+            </p>
+
+            <button (click)="login()"
+                class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1">
+                    </path>
+                </svg>
+                Anmelden
+            </button>
+
+            <div class="mt-8 space-y-3">
+                <div class="flex items-center gap-3 text-sm text-gray-600">
+                    <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                    <span>Pflanzen verwalten und organisieren</span>
+                </div>
+                <div class="flex items-center gap-3 text-sm text-gray-600">
+                    <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                    <span>Gießerinnerungen einrichten</span>
+                </div>
+                <div class="flex items-center gap-3 text-sm text-gray-600">
+                    <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                    <span>Pflegehistorie verfolgen</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

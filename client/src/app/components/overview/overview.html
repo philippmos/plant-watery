@@ -1,14 +1,18 @@
-<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-  @if (isLoading()) {
-    <div class="col-span-full flex justify-center items-center py-8">
-      <div class="flex items-center gap-2">
-        <div class="w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
-        <span class="text-gray-600">Pflanzen werden geladen...</span>
+@if (isAuthenticated | async) {
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    @if (isLoading()) {
+      <div class="col-span-full flex justify-center items-center py-8">
+        <div class="flex items-center gap-2">
+          <div class="w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+          <span class="text-gray-600">Pflanzen werden geladen...</span>
+        </div>
       </div>
-    </div>
-  } @else {
-    @for (item of items(); track item.id) {
-      <app-overview-item [data]="item"></app-overview-item>
+    } @else {
+      @for (item of items(); track item.id) {
+        <app-overview-item [data]="item"></app-overview-item>
+      }
     }
-  }
-</div>
+  </div>
+} @else {
+  <app-login-prompt />
+}

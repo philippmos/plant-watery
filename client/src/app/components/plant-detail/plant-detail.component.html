@@ -1,24 +1,108 @@
 @if (plant() | async; as plantDetail) {
-    <div class="plant-detail container mx-auto p-4">
-        <h1 class="text-2xl font-bold mb-2">{{ plantDetail.title }}</h1>
-        <img class="w-full max-w-xs rounded shadow mb-4" [src]="plantDetail.imageUrl" alt="{{ plantDetail.title }}">
-        <p class="mb-4">Standort: <span class="font-semibold">{{ plantDetail.locationName }}</span></p>
+    <div class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+        <div class="group overflow-hidden shadow-2xl bg-gradient-to-br from-emerald-50/95 to-green-50/95 dark:from-emerald-900/95 dark:to-green-900/95 backdrop-blur-sm border border-emerald-200/30 dark:border-emerald-700/30 rounded-xl transition-all duration-300 ease-in-out hover:shadow-3xl hover:border-emerald-300/50 dark:hover:border-emerald-600/50 mb-8">
+            <div class="relative overflow-hidden rounded-t-xl">
+                <img [src]="plantDetail.imageUrl" 
+                     alt="{{ plantDetail.title }}" 
+                     class="w-full h-64 md:h-80 object-cover transition-transform duration-300 group-hover:scale-105">
+                <div class="absolute inset-0 bg-gradient-to-t from-emerald-900/80 via-emerald-900/20 to-transparent"></div>
+                
+                <div class="absolute bottom-0 left-0 right-0 p-6">
+                    <h1 class="text-3xl md:text-4xl font-bold text-white mb-2 drop-shadow-lg">
+                        {{ plantDetail.title }}
+                    </h1>
+                    
+                    <div class="flex items-center text-sm text-emerald-100/90 backdrop-blur-sm bg-emerald-900/30 rounded-lg px-3 py-2 w-fit">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                        <span class="font-medium">{{ plantDetail.locationName }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        <h2 class="text-xl font-semibold mt-6 mb-2">Gieß-Historie</h2>
-        <ul class="list-disc pl-5">
-            @if(plantDetail.wateringEvents && plantDetail.wateringEvents.length > 0) {
-            @for(event of plantDetail.wateringEvents; track event.id) {
-            <li class="mb-1">
-                {{ event.dateTime | date:'dd.MM.yyyy HH:mm' }} Uhr – {{ event.comment || 'Kein Kommentar' }}
-            </li>
-            }
-            } @else {
-            <li>Keine Einträge.</li>
-            }
-        </ul>
+        <div class="bg-gradient-to-br from-white/95 to-emerald-50/95 dark:from-gray-900/95 dark:to-emerald-900/95 backdrop-blur-sm border border-emerald-200/30 dark:border-emerald-700/30 rounded-xl shadow-xl p-6 sm:p-8 transition-all duration-300 hover:shadow-2xl hover:border-emerald-300/50 dark:hover:border-emerald-600/50">
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-emerald-600 to-green-700 rounded-xl shadow-lg">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"/>
+                    </svg>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Gieß-Historie</h2>
+                    <p class="text-sm text-gray-600 dark:text-gray-300">Übersicht aller Bewässerungen</p>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                @if(plantDetail.wateringEvents && plantDetail.wateringEvents.length > 0) {
+                    @for(event of plantDetail.wateringEvents; track event.id) {
+                        <div class="group relative bg-gradient-to-r from-emerald-50/50 to-green-50/50 dark:from-emerald-900/20 dark:to-green-900/20 backdrop-blur-sm border border-emerald-200/40 dark:border-emerald-700/40 rounded-lg p-4 transition-all duration-200 hover:shadow-md hover:border-emerald-300/60 dark:hover:border-emerald-600/60 hover:bg-gradient-to-r hover:from-emerald-100/60 hover:to-green-100/60 dark:hover:from-emerald-800/30 dark:hover:to-green-800/30">
+                            <div class="flex items-start space-x-4">
+                                <div class="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center shadow-md">
+                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"/>
+                                    </svg>
+                                </div>
+                                
+                                <div class="flex-1 min-w-0">
+                                    <div class="flex items-center space-x-2 mb-1">
+                                        <svg class="w-4 h-4 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                        </svg>
+                                        <span class="text-sm font-semibold text-emerald-800 dark:text-emerald-200">
+                                            {{ event.dateTime | date:'dd.MM.yyyy HH:mm' }} Uhr
+                                        </span>
+                                    </div>
+                                    <p class="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
+                                        {{ event.comment || 'Kein Kommentar hinterlassen' }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                } @else {
+                    <div class="text-center py-12">
+                        <div class="flex flex-col items-center space-y-4">
+                            <div class="w-16 h-16 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700 rounded-full flex items-center justify-center">
+                                <svg class="w-8 h-8 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                                </svg>
+                            </div>
+                            <div class="text-center">
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-1">
+                                    Noch keine Bewässerungen
+                                </h3>
+                                <p class="text-gray-600 dark:text-gray-400">
+                                    Diese Pflanze wurde noch nicht gegossen oder die Einträge sind nicht verfügbar.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
     </div>
 } @else {
-    <div class="container mx-auto p-4">
-        <p>Pflanze nicht gefunden.</p>
+    <div class="max-w-2xl mx-auto p-4 sm:p-6 lg:p-8">
+        <div class="bg-gradient-to-br from-red-50/95 to-orange-50/95 dark:from-red-900/95 dark:to-orange-900/95 backdrop-blur-sm border border-red-200/30 dark:border-red-700/30 rounded-xl shadow-xl p-8 text-center">
+            <div class="flex flex-col items-center space-y-4">
+                <div class="w-16 h-16 bg-gradient-to-br from-red-500 to-red-600 rounded-full flex items-center justify-center">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"/>
+                    </svg>
+                </div>
+                <div>
+                    <h2 class="text-xl font-bold text-red-800 dark:text-red-200 mb-2">
+                        Pflanze nicht gefunden
+                    </h2>
+                    <p class="text-red-600 dark:text-red-300">
+                        Die angeforderte Pflanze konnte nicht geladen werden.
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
 }
