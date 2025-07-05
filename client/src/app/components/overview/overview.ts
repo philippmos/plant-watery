@@ -19,7 +19,7 @@ export class Overview implements OnInit {
     await this.plantService.getAllPlants();
   }
 
-  trackByTitle(index: number, item: PlantOverview) {
-    return item.title;
+  trackById(index: number, item: PlantOverview) {
+    return item.id;
   }
 }

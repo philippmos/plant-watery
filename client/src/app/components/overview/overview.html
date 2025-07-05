@@ -7,7 +7,7 @@
       </div>
     </div>
   } @else {
-    @for (item of items(); track item.title) {
+    @for (item of items(); track item.id) {
       <app-overview-item [data]="item"></app-overview-item>
     }
   }
