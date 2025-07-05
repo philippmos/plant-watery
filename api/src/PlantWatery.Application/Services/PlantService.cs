@@ -1,6 +1,7 @@
-﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;
 using PlantWatery.Domain.Dtos;
 using PlantWatery.Domain.Entities;
+using PlantWatery.Domain.Interfaces;
 using PlantWatery.Domain.Interfaces.Repositories;
 using PlantWatery.Domain.Interfaces.Services;
 
@@ -8,12 +9,13 @@ namespace PlantWatery.Application.Services;
 
 public class PlantService(
     IPlantRepository plantRepo,
-    IRepository<WateringEvent> wateringRepo,
+    IRepository<WateringEventEntity> wateringRepo,
+    IUserContext userContext,
     ILogger<PlantService> logger) : IPlantService
 {
     public async Task<PlantDetailDto?> GetPlantForDetailsByIdAsync(Guid id)
     {
-        var plant = await plantRepo.GetByIdWithAllIncludesAsync(id);
+        var plant = await plantRepo.GetByIdForUserWithAllAsync(id, userContext.GetSub());
 
         return plant is null 
             ? null 
@@ -22,14 +24,14 @@ public class PlantService(
 
     public async Task<IEnumerable<PlantOverviewDto>> GetAllPlantsForOverviewAsync()
     {
-        var allPlants = await plantRepo.GetAllWithLocationsAndLatestWateringEventAsync();
+        var allPlants = await plantRepo.GetAllByUserWithAllAsync(userContext.GetSub());
 
         return allPlants.Select(PlantOverviewDto.FromEntity);
     }
 
     public async Task<bool> CreateWateringAsync(Guid plantId, CreateWateringDto wateringDto)
     {
-        var plant = await plantRepo.GetByIdWithAllIncludesAsync(plantId);
+        var plant = await plantRepo.GetByIdForUserWithAllAsync(plantId, userContext.GetSub());
 
         if (plant is null)
         {
@@ -37,11 +39,11 @@ public class PlantService(
             return false;
         }
 
-        var wateringEvent = new WateringEvent
+        var wateringEvent = new WateringEventEntity
         {
             Id = Guid.NewGuid(),
             Comment = wateringDto.Comment,
-            DateTime = DateTime.UtcNow,
+            DateTime = wateringDto.DateTime,
             Plant = plant
         };
 

@@ -8,8 +8,7 @@ namespace PlantWatery.Api.Controllers.Plants;
 
 [Route("[controller]")]
 public class PlantsController(
-    IPlantService plantService,
-    ILogger<PlantsController> logger) : ApiControllerBase
+    IPlantService plantService) : ApiControllerBase
 {
     [HttpGet]
     public async Task<ActionResult<IEnumerable<PlantOverviewResponse>>> GetAll()
@@ -36,13 +35,13 @@ public class PlantsController(
     [HttpPost("{plantId}/waterings")]
     public async Task<IActionResult> CreateWateringForPlant(Guid plantId, [FromBody] CreateWateringRequest request)
     {
-        var result = await plantService.CreateWateringAsync(plantId, new (request.Comment));
+        var result = await plantService.CreateWateringAsync(plantId, new (request.DateTime, request.Comment));
 
         if (result is false)
         {
             return BadRequest();
         }
 
-        return CreatedAtAction("Get", new { plantId });
+        return CreatedAtAction(nameof(Get), new { plantId }, null);
     }
 }

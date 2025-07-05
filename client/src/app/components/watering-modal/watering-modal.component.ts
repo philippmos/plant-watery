@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Plant } from '../../interfaces/plant';
+import { PlantOverview } from '../../interfaces/plant-overview';
+import { PlantService } from '../../services/plant.service';
 
 @Component({
     selector: 'app-watering-modal',
@@ -11,23 +12,52 @@ import { Plant } from '../../interfaces/plant';
 })
 export class WateringModalComponent {
     @Input() isOpen = false;
-    @Input() data!: Plant;
+    @Input() data!: PlantOverview;
     @Output() modalClose = new EventEmitter<void>();
 
+    private readonly plantService = inject(PlantService);
+    
+    protected readonly isSaving = signal(false);
+
     comment = '';
+    selectedDate = '';
+    selectedTime = '';
 
-    onSave() {
-        const newHistoryItem = {
-            id: crypto.randomUUID(),
-            dateTime: new Date(),
-            comment: this.comment
-        };
+    constructor() {
+        const now = new Date();
+        this.selectedDate = now.toISOString().split('T')[0];
+        this.selectedTime = now.toTimeString().slice(0, 5);
+    }
 
-        this.data.waterHistory.push(newHistoryItem);
-        this.modalClose.emit();
+    async onSave() {
+        if (this.isSaving()) {
+            return;
+        }
+
+        this.isSaving.set(true);
+        
+        try {
+            const dateTime = new Date(`${this.selectedDate}T${this.selectedTime}`);
+            
+            await this.plantService.addWatering(this.data.id, { 
+                comment: this.comment.trim() || undefined,
+                dateTime: dateTime.toISOString()
+            });
+
+            this.onClose();
+        } catch (error) {
+            console.error('Error saving watering:', error);
+        } finally {
+            this.isSaving.set(false);
+        }
     }
 
     onClose() {
+        this.comment = '';
+        const now = new Date();
+        this.selectedDate = now.toISOString().split('T')[0];
+        this.selectedTime = now.toTimeString().slice(0, 5);
+        
         this.modalClose.emit();
     }
 }

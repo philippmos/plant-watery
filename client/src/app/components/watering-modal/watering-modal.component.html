@@ -2,13 +2,55 @@
     <div class="fixed inset-0 flex items-center justify-center bg-gray-900/75">
         <div class="bg-white rounded-lg shadow-lg p-6 w-96">
             <h2 class="text-lg font-semibold mb-4">{{ data.title }} gießen</h2>
-            <textarea [(ngModel)]="comment" class="w-full h-24 p-2 border rounded-lg"
-                placeholder="Kommentar eingeben"></textarea>
-            <div class="flex justify-end mt-4">
-                <button (click)="onSave()"
-                    class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500">Speichern</button>
-                <button (click)="onClose()"
-                    class="ml-2 px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400">Schließen</button>
+            
+            <div class="mb-4">
+                <span class="block text-sm font-medium text-gray-700 mb-2">Datum und Uhrzeit</span>
+                <div class="flex gap-2">
+                    <input 
+                        type="date" 
+                        [(ngModel)]="selectedDate"
+                        class="flex-1 p-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        aria-label="Datum auswählen"
+                    />
+                    <input 
+                        type="time" 
+                        [(ngModel)]="selectedTime"
+                        class="flex-1 p-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        aria-label="Uhrzeit auswählen"
+                    />
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <span for="comment-input" class="block text-sm font-medium text-gray-700 mb-2">Kommentar</span>
+                <textarea 
+                    id="comment-input"
+                    [(ngModel)]="comment" 
+                    class="w-full h-24 p-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="Optionaler Kommentar..."
+                ></textarea>
+            </div>
+
+            <div class="flex justify-end gap-2">
+                <button 
+                    (click)="onClose()"
+                    [disabled]="isSaving()"
+                    class="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                    Abbrechen
+                </button>
+                <button 
+                    (click)="onSave()"
+                    [disabled]="isSaving()"
+                    class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                >
+                    @if (isSaving()) {
+                        <div class="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                        <span>Speichern...</span>
+                    } @else {
+                        <span>Speichern</span>
+                    }
+                </button>
             </div>
         </div>
     </div>

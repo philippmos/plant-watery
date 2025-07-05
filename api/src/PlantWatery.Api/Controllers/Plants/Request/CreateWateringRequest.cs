@@ -1,3 +1,3 @@
-﻿namespace PlantWatery.Api.Controllers.Plants.Request;
+namespace PlantWatery.Api.Controllers.Plants.Request;
 
-public record CreateWateringRequest(string Comment);
+public record CreateWateringRequest(DateTime DateTime, string? Comment);

@@ -1,4 +1,4 @@
-﻿using PlantWatery.Domain.Entities;
+using PlantWatery.Domain.Entities;
 
 namespace PlantWatery.Domain.Dtos;
 
@@ -9,7 +9,7 @@ public record PlantOverviewDto(
     string LocationName,
     DateTime? LastWateredDateTime = null)
 {
-    public static PlantOverviewDto FromEntity(Plant entity) 
+    public static PlantOverviewDto FromEntity(PlantEntity entity) 
         => new (
             entity.Id,
             entity.Title,

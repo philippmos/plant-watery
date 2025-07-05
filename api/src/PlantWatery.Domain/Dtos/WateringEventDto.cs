@@ -7,6 +7,6 @@ public record WateringEventDto(
     DateTime DateTime,
     string? Comment)
 {
-    public static WateringEventDto FromEntity(WateringEvent entity) 
+    public static WateringEventDto FromEntity(WateringEventEntity entity) 
         => new(entity.Id, entity.DateTime, entity.Comment);
 }
