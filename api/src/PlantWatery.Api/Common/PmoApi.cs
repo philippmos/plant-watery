@@ -49,6 +49,7 @@ public static class PmoApi
 
         app.UseHttpsRedirection();
 
+        app.UseAuthentication();
         app.UseAuthorization();
 
         app.MapControllers();
