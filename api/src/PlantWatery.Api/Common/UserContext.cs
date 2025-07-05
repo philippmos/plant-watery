@@ -11,7 +11,7 @@ public class UserContext(IHttpContextAccessor accessor) : IUserContext
         => User.FindFirst(claimType)?.Value;
 
     public string? GetSub()
-        => GetClaim("sub");
+        => GetClaim(ClaimTypes.NameIdentifier);
 
     public IEnumerable<Claim> GetClaims(string claimType)
         => User.FindAll(claimType);

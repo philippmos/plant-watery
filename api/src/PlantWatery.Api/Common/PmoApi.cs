@@ -3,6 +3,8 @@ using PlantWatery.Infrastructure;
 using PlantWatery.Domain.Interfaces;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Scalar.AspNetCore;
+using Microsoft.OpenApi.Models;
 
 namespace PlantWatery.Api.Common;
 
@@ -15,7 +17,7 @@ public static class PmoApi
         builder.Services.SetupCorsHandling();
 
         builder.Services.AddControllers();
-        builder.Services.AddOpenApi();
+        builder.Services.ConfigureOpenApi();
 
         builder.Services.AddAuth(builder.Configuration);
 
@@ -34,6 +36,13 @@ public static class PmoApi
         if (app.Environment.IsDevelopment())
         {
             app.MapOpenApi("/openapi/openapi.json");
+            app.MapScalarApiReference(options =>
+            {
+                options.Title = "Plant Watery API";
+                options.OpenApiRoutePattern = "/openapi/openapi.json";
+                options.EndpointPathPrefix = "/docs/{documentName}";
+                options.DefaultHttpClient = new(ScalarTarget.CSharp, ScalarClient.HttpClient);
+            });
         }
 
         app.UseCors("AllowClient");
@@ -64,20 +73,56 @@ public static class PmoApi
                 options.TokenValidationParameters = new()
                 {
                     ValidateIssuer = true,
-                    ValidIssuer = configuration["Auth:ValidIssuer"] ?? "",
                     ValidateAudience = true,
-                    ValidateLifetime = true
-                };
-
-                options.Events = new JwtBearerEvents
-                {
-                    OnAuthenticationFailed = context =>
-                    {
-                        Console.WriteLine($"Authentication failed: {context.Exception.Message}");
-                        return Task.CompletedTask;
-                    }
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,                    
+                    ValidTypes = [ "JWT", "at+jwt" ],
+                    RequireExpirationTime = true,
+                    ClockSkew = TimeSpan.FromMinutes(5)
                 };
             });
+
+        return services;
+    }
+
+    private static IServiceCollection ConfigureOpenApi(this IServiceCollection services)
+    {
+        services.AddOpenApi(options =>
+        {
+            options.AddDocumentTransformer((document, context, cancellationToken) =>
+            {
+                document.Components ??= new();
+                document.Components.SecuritySchemes ??= new Dictionary<string, OpenApiSecurityScheme>();
+
+                document.Components.SecuritySchemes.Add("Bearer", new()
+                {
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "bearer",
+                    BearerFormat = "JWT",
+                    Description = "JWT Authorization header using the Bearer scheme."
+                });
+
+                document.SecurityRequirements =
+                [
+                    new()
+                    {
+                        {
+                            new ()
+                            {
+                                Reference = new ()
+                                {
+                                    Type = ReferenceType.SecurityScheme,
+                                    Id = "Bearer"
+                                }
+                            },
+                            Array.Empty<string>()
+                        }
+                    }
+                ];
+
+                return Task.CompletedTask;
+            });
+        });
 
         return services;
     }
