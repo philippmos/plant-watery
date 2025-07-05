@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace PlantWatery.Api.Common;
 
-// [Authorize]
+[Authorize]
 [ApiController]
 public class ApiControllerBase : ControllerBase
 { }
