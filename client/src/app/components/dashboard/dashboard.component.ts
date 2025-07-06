@@ -9,11 +9,12 @@ import { LoginPromptComponent } from '../layout/login-prompt/login-prompt.compon
 import { RouterModule } from '@angular/router';
 import { DashboardTileComponent, DashboardTileData } from './dashboard-tile/dashboard-tile.component';
 import { WateringModalComponent } from '../shared/watering-modal/watering-modal.component';
+import { PlantSectionComponent, PlantSectionConfig } from './plant-section/plant-section.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, LoginPromptComponent, RouterModule, DashboardTileComponent, WateringModalComponent],
+  imports: [CommonModule, LoginPromptComponent, RouterModule, DashboardTileComponent, WateringModalComponent, PlantSectionComponent],
   templateUrl: './dashboard.component.html'
 })
 export class DashboardComponent implements OnInit {
@@ -77,35 +78,55 @@ export class DashboardComponent implements OnInit {
     colorScheme: 'amber'
   }));
 
+  // Plant section configurations
+  protected readonly todaySectionConfig: PlantSectionConfig = {
+    title: '🚨 Heute gießen',
+    subtitle: 'Diese Pflanzen brauchen dringend Wasser',
+    icon: 'M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10',
+    iconBgColor: 'bg-gradient-to-br from-red-500 to-red-600',
+    cardColorScheme: {
+      light: 'bg-gradient-to-br from-red-50/95 to-orange-50/95',
+      dark: 'dark:from-red-900/95 dark:to-orange-900/95'
+    },
+    borderColorScheme: {
+      base: 'border border-red-200/30 dark:border-red-700/30',
+      hover: 'hover:border-red-300/50 dark:hover:border-red-600/50'
+    },
+    textColorScheme: 'text-red-600 dark:text-red-400',
+    buttonColorScheme: {
+      base: 'bg-gradient-to-r from-red-500 to-red-600',
+      hover: 'hover:from-red-600 hover:to-red-700'
+    },
+    buttonType: 'water'
+  };
+
+  protected readonly tomorrowSectionConfig: PlantSectionConfig = {
+    title: '⏰ Morgen gießen',
+    subtitle: 'Diese Pflanzen brauchen morgen Wasser',
+    icon: 'M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z',
+    iconBgColor: 'bg-gradient-to-br from-amber-500 to-amber-600',
+    cardColorScheme: {
+      light: 'bg-gradient-to-br from-amber-50/95 to-yellow-50/95',
+      dark: 'dark:from-amber-900/95 dark:to-yellow-900/95'
+    },
+    borderColorScheme: {
+      base: 'border border-amber-200/30 dark:border-amber-700/30',
+      hover: 'hover:border-amber-300/50 dark:hover:border-amber-600/50'
+    },
+    textColorScheme: 'text-amber-600 dark:text-amber-400',
+    buttonColorScheme: {
+      base: 'bg-gradient-to-r from-amber-500 to-amber-600',
+      hover: 'hover:from-amber-600 hover:to-amber-700'
+    },
+    buttonType: 'details'
+  };
+
   async ngOnInit() {
     const isAuthenticated = await firstValueFrom(this.authService.isAuthenticated$);
     
     if (isAuthenticated) {
       await this.plantService.getAllPlants();
     }
-  }
-
-  protected getRelativeTime(date: Date | undefined): string {
-    if (!date) return 'Noch nie';
-    return DateUtils.getRelativeTime(date);
-  }
-
-  protected getUrgencyClass(plant: PlantOverview): string {
-    if (DateUtils.needsWateringToday(plant.lastWateredDateTime)) {
-      return 'border-red-500/40 bg-gradient-to-r from-red-50/50 to-orange-50/50 dark:from-red-900/20 dark:to-orange-900/20';
-    } else if (DateUtils.needsWateringTomorrow(plant.lastWateredDateTime)) {
-      return 'border-amber-500/40 bg-gradient-to-r from-amber-50/50 to-yellow-50/50 dark:from-amber-900/20 dark:to-yellow-900/20';
-    }
-    return 'border-emerald-500/40 bg-gradient-to-r from-emerald-50/50 to-green-50/50 dark:from-emerald-900/20 dark:to-green-900/20';
-  }
-
-  protected getUrgencyIcon(plant: PlantOverview): string {
-    if (DateUtils.needsWateringToday(plant.lastWateredDateTime)) {
-      return 'text-red-600 dark:text-red-400';
-    } else if (DateUtils.needsWateringTomorrow(plant.lastWateredDateTime)) {
-      return 'text-amber-600 dark:text-amber-400';
-    }
-    return 'text-emerald-600 dark:text-emerald-400';
   }
 
   public openWateringModal(plant: PlantOverview): void {
