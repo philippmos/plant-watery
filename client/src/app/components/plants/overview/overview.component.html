@@ -1,4 +1,4 @@
-<div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+<div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8" style="overflow: visible !important;">
   <app-page-header [config]="pageHeaderConfig" />
 
 
@@ -6,7 +6,9 @@
     [allPlants]="allPlants()"
     [isFilterActive]="showOnlyNeedWatering()"
     [plantsNeedingWaterCount]="plantsNeedingWaterCount"
-    (filterToggle)="toggleFilter()" />
+    [selectedLocation]="selectedLocation()"
+    (filterToggle)="toggleFilter()"
+    (locationChange)="onLocationChange($event)" />
 
   <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
     @if (isLoading()) {
@@ -16,7 +18,7 @@
           <span class="text-gray-600">Pflanzen werden geladen...</span>
         </div>
       </div>
-    } @else if (items().length === 0 && showOnlyNeedWatering()) {
+    } @else if (items().length === 0 && (showOnlyNeedWatering() || selectedLocation())) {
       <div class="col-span-full text-center py-16">
         <div class="group relative overflow-hidden bg-gradient-to-br from-emerald-50/95 to-green-50/95 dark:from-emerald-900/95 dark:to-green-900/95 backdrop-blur-sm border border-emerald-200/40 dark:border-emerald-700/40 rounded-3xl p-12 shadow-2xl inline-block hover:shadow-3xl transition-all duration-500 hover:scale-105">
 
@@ -36,15 +38,34 @@
             
             <div class="space-y-3">
               <h3 class="text-3xl font-bold text-emerald-800 dark:text-emerald-200 tracking-tight">
-                🎉 Perfekt! Alles bestens!
+                @if (showOnlyNeedWatering() && selectedLocation()) {
+                  🎉 Perfekt! Alles bestens!
+                } @else if (showOnlyNeedWatering()) {
+                  🎉 Perfekt! Alles bestens!
+                } @else if (selectedLocation()) {
+                  📍 Keine Pflanzen gefunden
+                }
               </h3>
               <div class="max-w-md mx-auto space-y-2">
                 <p class="text-lg text-emerald-700 dark:text-emerald-300 font-medium">
-                  Keine Pflanzen brauchen dringend Wasser
+                  @if (showOnlyNeedWatering() && selectedLocation()) {
+                    Keine Pflanzen in "{{ selectedLocation() }}" brauchen dringend Wasser
+                  } @else if (showOnlyNeedWatering()) {
+                    Keine Pflanzen brauchen dringend Wasser
+                  } @else if (selectedLocation()) {
+                    Keine Pflanzen in "{{ selectedLocation() }}" vorhanden
+                  }
                 </p>
                 <p class="text-sm text-emerald-600 dark:text-emerald-400 leading-relaxed">
-                  Alle Deine Pflanzen sind gut versorgt und wurden innerhalb der letzten Woche gegossen. 
-                  Weiter so! 🌱
+                  @if (showOnlyNeedWatering() && selectedLocation()) {
+                    Alle Deine Pflanzen am Standort "{{ selectedLocation() }}" sind gut versorgt und wurden innerhalb der letzten Woche gegossen. 
+                    Weiter so! 🌱
+                  } @else if (showOnlyNeedWatering()) {
+                    Alle Deine Pflanzen sind gut versorgt und wurden innerhalb der letzten Woche gegossen. 
+                    Weiter so! 🌱
+                  } @else if (selectedLocation()) {
+                    Wähle einen anderen Standort aus oder füge neue Pflanzen hinzu. 🌿
+                  }
                 </p>
               </div>
             </div>

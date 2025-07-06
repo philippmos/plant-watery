@@ -1,0 +1,248 @@
+<div class="mb-8 relative" style="overflow: visible !important; z-index: 1000;">
+  <div class="group relative bg-gradient-to-br from-white/95 to-emerald-50/95 dark:from-gray-900/95 dark:to-emerald-900/95 backdrop-blur-sm border border-emerald-200/40 dark:border-emerald-700/40 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 ease-out hover:border-emerald-300/60 dark:hover:border-emerald-600/60" 
+       style="overflow: visible !important; z-index: 1000;">
+    <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-emerald-100/30 to-transparent dark:from-emerald-800/20 rounded-full -translate-y-16 translate-x-16 pointer-events-none"></div>
+    <div class="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-green-100/30 to-transparent dark:from-green-800/20 rounded-full translate-y-12 -translate-x-12 pointer-events-none"></div>
+    
+    <div class="relative p-6 lg:p-8" style="overflow: visible !important; z-index: 1000;">
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+        <div class="flex items-center space-x-4">
+          <div class="relative">
+            <div class="flex items-center justify-center w-14 h-14 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl shadow-lg group-hover:shadow-xl transition-all duration-300">
+              <svg class="w-7 h-7 text-white transition-transform duration-300 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
+              </svg>
+            </div>
+            @if (isFilterActive()) {
+              <div class="absolute inset-0 bg-red-400 rounded-2xl animate-ping opacity-20"></div>
+            }
+          </div>
+          <div class="space-y-1">
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white tracking-tight">
+              Pflanzen-Filter
+            </h3>
+            <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+              @if (isFilterActive()) {
+                <span class="text-red-600 dark:text-red-400 font-medium">🚨 Zeige Pflanzen, die Wasser brauchen</span>
+              } @else {
+                <span>Filtere Deine Pflanzen nach verschiedenen Kriterien</span>
+              }
+            </p>
+          </div>
+        </div>
+        
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4" style="overflow: visible !important;">
+          @if (allPlants().length > 0) {
+            <div class="relative order-3 sm:order-1">
+              <div class="px-4 py-3 bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-700 rounded-xl border border-gray-200/50 dark:border-gray-600/50 shadow-inner">
+                <div class="flex items-center justify-center space-x-2">
+                  <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                  </svg>
+                  <span class="text-sm font-semibold text-gray-700 dark:text-gray-300">
+                    @if (isFilterActive()) {
+                      <span class="text-red-600 dark:text-red-400">{{ plantsNeedingWaterCount() }}</span> von <span>{{ allPlants().length }}</span> Pflanzen
+                    } @else if (selectedLocation()) {
+                      <span class="text-blue-600 dark:text-blue-400">{{ locationFilteredCount() }}</span> von <span>{{ allPlants().length }}</span> Pflanzen
+                    } @else {
+                      <span>{{ allPlants().length }}</span> Pflanzen gesamt
+                    }
+                  </span>
+                </div>
+              </div>
+            </div>
+          }
+          
+          <!-- Location Filter Button -->
+          @if (availableLocations().length > 1) {
+            <div class="order-1 sm:order-2 relative" style="overflow: visible !important; z-index: 10000;">
+              <button 
+                (click)="toggleLocationFilter()"
+                class="group/location w-full sm:w-auto relative overflow-hidden px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-300 ease-out transform hover:scale-105 shadow-lg hover:shadow-xl active:scale-95"
+                [class]="selectedLocation() ? 
+                  'bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 text-white border border-blue-400/30 hover:from-blue-600 hover:via-blue-700 hover:to-blue-800 shadow-blue-500/25' : 
+                  'bg-gradient-to-r from-gray-500 via-gray-600 to-gray-700 text-white border border-gray-400/30 hover:from-gray-600 hover:via-gray-700 hover:to-gray-800 shadow-gray-500/25'"
+                style="z-index: 10001;">
+                
+                <div class="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent translate-x-[-100%] group-hover/location:translate-x-[100%] transition-transform duration-700 ease-out"></div>
+                
+                <div class="relative flex items-center justify-center space-x-3">
+                  <svg class="w-5 h-5 transition-transform duration-300 group-hover/location:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                  </svg>
+                  
+                  <span class="font-bold tracking-wide">
+                    @if (selectedLocation()) {
+                      <span>{{ selectedLocation() }}</span>
+                    } @else {
+                      <span>📍 Standort</span>
+                    }
+                  </span>
+                  
+                  <svg class="w-4 h-4 transition-transform duration-300" 
+                       [class.rotate-180]="showLocationFilter()" 
+                       fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                  </svg>
+                  
+                  @if (selectedLocation()) {
+                    <div class="ml-2 px-2 py-1 bg-white/20 rounded-full">
+                      <span class="text-xs font-bold">{{ locationFilteredCount() }}</span>
+                    </div>
+                  }
+                </div>
+              </button>
+              
+              <!-- Location Dropdown -->
+              @if (showLocationFilter()) {
+                <div class="absolute top-full left-0 right-0 mt-2 animate-in fade-in-0 zoom-in-95 duration-200" 
+                     style="z-index: 10002 !important; overflow: visible !important;">
+                  <div class="bg-white dark:bg-gray-800 rounded-xl shadow-2xl border border-gray-200/50 dark:border-gray-600/50 overflow-hidden backdrop-blur-sm"
+                       style="box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0, 0, 0, 0.05); overflow: visible !important;">
+                    <div class="p-2 space-y-1 max-h-[400px] overflow-y-auto">
+                      <div class="space-y-1">
+                        <button 
+                          (click)="onLocationChange(null); toggleLocationFilter()"
+                          class="w-full px-4 py-3 text-left rounded-lg transition-all duration-200 hover:bg-gray-50 dark:hover:bg-gray-700"
+                          [class]="selectedLocation() === null ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 font-semibold' : 'text-gray-700 dark:text-gray-300'">
+                          <div class="flex items-center space-x-3">
+                            <svg class="w-4 h-4 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/>
+                            </svg>
+                            <span>Alle Standorte</span>
+                            <div class="ml-auto text-xs opacity-60">{{ allPlants().length }}</div>
+                          </div>
+                        </button>
+                        
+                        @if (availableLocations().length > 0) {
+                          <div class="my-2 border-t border-gray-200/50 dark:border-gray-600/50"></div>
+                        }
+                        
+                        @for (location of availableLocations(); track location) {
+                          <button 
+                            (click)="onLocationChange(location); toggleLocationFilter()"
+                            class="w-full px-4 py-3 text-left rounded-lg transition-all duration-200 hover:bg-gray-50 dark:hover:bg-gray-700"
+                            [class]="selectedLocation() === location ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 font-semibold' : 'text-gray-700 dark:text-gray-300'">
+                            <div class="flex items-center space-x-3">
+                              <svg class="w-4 h-4 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                              </svg>
+                              <span>{{ location }}</span>
+                              <div class="ml-auto text-xs opacity-60">
+                                {{ locationCounts().get(location) }}
+                              </div>
+                            </div>
+                          </button>
+                        }
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              }
+            </div>
+          }
+          
+          <!-- Water Filter Button -->
+          <button 
+            (click)="onToggleFilter()"
+            class="order-2 sm:order-3 group/btn relative overflow-hidden px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-300 ease-out transform hover:scale-105 shadow-lg hover:shadow-xl active:scale-95"
+            [class]="isFilterActive() ? 
+              'bg-gradient-to-r from-red-500 via-red-600 to-red-700 text-white border border-red-400/30 hover:from-red-600 hover:via-red-700 hover:to-red-800 shadow-red-500/25' : 
+              'bg-gradient-to-r from-emerald-500 via-emerald-600 to-emerald-700 text-white border border-emerald-400/30 hover:from-emerald-600 hover:via-emerald-700 hover:to-emerald-800 shadow-emerald-500/25'">
+            
+            <div class="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-700 ease-out"></div>
+            
+            <div class="relative flex items-center justify-center space-x-3">
+              <div class="relative">
+                @if (isFilterActive()) {
+                  <svg class="w-5 h-5 transition-transform duration-300 group-hover/btn:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                  </svg>
+                } @else {
+                  <svg class="w-5 h-5 transition-transform duration-300 group-hover/btn:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"/>
+                  </svg>
+                }
+              </div>
+              
+              <span class="font-bold tracking-wide">
+                @if (isFilterActive()) {
+                  <span>Alle anzeigen</span>
+                } @else {
+                  <span>💧 Brauchen Wasser</span>
+                }
+              </span>
+              
+              @if (isFilterActive() && plantsNeedingWaterCount() > 0) {
+                <div class="ml-2 px-2 py-1 bg-white/20 rounded-full">
+                  <span class="text-xs font-bold">{{ plantsNeedingWaterCount() }}</span>
+                </div>
+              }
+            </div>
+          </button>
+        </div>
+      </div>
+      
+      @if (isFilterActive() || selectedLocation()) {
+        <div class="mt-6">
+          <div class="relative">
+            <div class="absolute inset-0 flex items-center" aria-hidden="true">
+              <div class="w-full border-t border-gradient-to-r from-transparent via-red-300/50 to-transparent dark:via-red-600/30"></div>
+            </div>
+            
+            <div class="relative flex justify-center">
+              <div class="group/indicator bg-gradient-to-r from-red-50 via-red-100 to-red-50 dark:from-red-900/40 dark:via-red-800/50 dark:to-red-900/40 px-6 py-3 rounded-full border border-red-200/50 dark:border-red-700/30 shadow-lg backdrop-blur-sm hover:shadow-xl transition-all duration-300">
+                <div class="flex items-center space-x-3">
+                  <div class="relative flex items-center">
+                    <div class="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
+                    <div class="absolute inset-0 w-3 h-3 bg-red-400 rounded-full animate-ping opacity-30"></div>
+                  </div>
+                  
+                  <div class="flex items-center space-x-2 text-red-700 dark:text-red-300">
+                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
+                    </svg>
+                    <span class="text-sm font-semibold whitespace-nowrap">
+                      @if (isFilterActive() && selectedLocation()) {
+                        Aktive Filter: Wasser & Standort
+                      } @else if (isFilterActive()) {
+                        Aktiver Filter: Wasser benötigt
+                      } @else if (selectedLocation()) {
+                        Aktiver Filter: Standort
+                      }
+                    </span>
+                    
+                    <div class="hidden sm:flex items-center space-x-2 text-xs text-red-600/80 dark:text-red-400/80">
+                      <span>•</span>
+                      @if (isFilterActive() && selectedLocation()) {
+                        <span class="font-medium whitespace-nowrap">{{ selectedLocation() }}, seit über 1 Woche</span>
+                      } @else if (isFilterActive()) {
+                        <span class="font-medium whitespace-nowrap">seit über 1 Woche</span>
+                      } @else if (selectedLocation()) {
+                        <span class="font-medium whitespace-nowrap">{{ selectedLocation() }}</span>
+                      }
+                    </div>
+                  </div>
+                  
+                  <div class="bg-red-200/50 dark:bg-red-800/30 px-3 py-1 rounded-full">
+                    <span class="text-xs font-bold text-red-800 dark:text-red-200 whitespace-nowrap">
+                      @if (isFilterActive() && selectedLocation()) {
+                        {{ plantsNeedingWaterCount() }} / {{ locationFilteredCount() }} gefunden
+                      } @else if (isFilterActive()) {
+                        {{ plantsNeedingWaterCount() }} gefunden
+                      } @else if (selectedLocation()) {
+                        {{ locationFilteredCount() }} gefunden
+                      }
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</div>

@@ -20,12 +20,19 @@ export class OverviewComponent implements OnInit {
   protected readonly isLoading = this.plantService.isLoading;
   
   protected readonly showOnlyNeedWatering = signal(false);
+  protected readonly selectedLocation = signal<string | null>(null);
   
   protected readonly items = computed(() => {
-    const plants = this.allPlants();
+    let plants = this.allPlants();
     
+    // Filter by location first
+    if (this.selectedLocation()) {
+      plants = plants.filter(plant => plant.locationName === this.selectedLocation());
+    }
+    
+    // Then filter by watering needs
     if (this.showOnlyNeedWatering()) {
-      return plants.filter(plant => DateUtils.notWateredForMoreThanWeek(plant.lastWateredDateTime));
+      plants = plants.filter(plant => DateUtils.notWateredForMoreThanWeek(plant.lastWateredDateTime));
     }
     
     return plants;
@@ -48,9 +55,21 @@ export class OverviewComponent implements OnInit {
   protected toggleFilter() {
     this.showOnlyNeedWatering.update(value => !value);
   }
+  
+  protected onLocationChange(location: string | null) {
+    this.selectedLocation.set(location);
+  }
 
   protected get plantsNeedingWaterCount(): number {
-    return this.allPlants().filter(plant => 
+    let plants = this.allPlants();
+    
+    // Filter by location if selected
+    if (this.selectedLocation()) {
+      plants = plants.filter(plant => plant.locationName === this.selectedLocation());
+    }
+    
+    // Filter by watering needs
+    return plants.filter(plant => 
       DateUtils.notWateredForMoreThanWeek(plant.lastWateredDateTime)
     ).length;
   }
