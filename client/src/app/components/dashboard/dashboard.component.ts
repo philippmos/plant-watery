@@ -5,14 +5,14 @@ import { firstValueFrom } from 'rxjs';
 import { PlantService } from '../../services/plant.service';
 import { PlantOverview } from '../../interfaces/plant-overview';
 import { DateUtils } from '../../utils/date.utils';
-import { LoginPrompt } from '../layout/login-prompt/login-prompt';
+import { LoginPromptComponent } from '../layout/login-prompt/login-prompt.component';
 import { RouterModule } from '@angular/router';
 import { DashboardTileComponent, DashboardTileData } from './dashboard-tile/dashboard-tile.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, LoginPrompt, RouterModule, DashboardTileComponent],
+  imports: [CommonModule, LoginPromptComponent, RouterModule, DashboardTileComponent],
   templateUrl: './dashboard.component.html'
 })
 export class DashboardComponent implements OnInit {

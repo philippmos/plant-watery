@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { inject } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
 import { map } from 'rxjs/operators';
-import { Overview } from './components/plants/overview/overview';
+import { OverviewComponent } from './components/plants/overview/overview.component';
 import { PlantDetailComponent } from './components/plants/plant-detail/plant-detail.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 
@@ -26,7 +26,7 @@ export const routes: Routes = [
   },
   {
     path: 'plants',
-    component: Overview
+    component: OverviewComponent
   },
   {
     path: 'plants/:id',

@@ -1,16 +1,16 @@
 import { Component, inject, signal, HostListener } from '@angular/core';
-import { AuthButton } from "../auth-button/auth-button";
+import { AuthButtonComponent } from "../auth-button/auth-button.component";
 
 import { AuthService } from '@auth0/auth0-angular';
 import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-user-navigation',
-  imports: [AuthButton, AsyncPipe],
-  templateUrl: './user-navigation.html',
+  imports: [AuthButtonComponent, AsyncPipe],
+  templateUrl: './user-navigation.component.html',
   standalone: true
 })
-export class UserNavigation {
+export class UserNavigationComponent {
   protected auth: AuthService = inject(AuthService);
   
   isDropdownOpen = signal(false);

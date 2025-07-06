@@ -5,9 +5,9 @@ import { AuthService } from '@auth0/auth0-angular';
   selector: 'app-login-prompt',
   standalone: true,
   imports: [],
-  templateUrl: './login-prompt.html'
+  templateUrl: './login-prompt.component.html'
 })
-export class LoginPrompt {
+export class LoginPromptComponent {
   private authService = inject(AuthService);
 
   login() {

@@ -1,14 +1,14 @@
 import { Component, signal } from '@angular/core';
-import { UserNavigation } from "../user-navigation/user-navigation";
+import { UserNavigationComponent } from "../user-navigation/user-navigation.component";
 import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-navigation',
-  imports: [UserNavigation, RouterLink],
-  templateUrl: './navigation.html',
+  imports: [UserNavigationComponent, RouterLink],
+  templateUrl: './navigation.component.html',
   standalone: true
 })
-export class Navigation {
+export class NavigationComponent {
   isMobileMenuOpen = signal(false);
 
   toggleMobileMenu() {

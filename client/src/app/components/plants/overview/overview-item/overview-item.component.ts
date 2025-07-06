@@ -9,9 +9,9 @@ import { DateUtils } from '../../../../utils/date.utils';
     selector: 'app-overview-item',
     standalone: true,
     imports: [RouterLink, WateringModalComponent],
-    templateUrl: './overview-item.html'
+    templateUrl: './overview-item.component.html'
 })
-export class OverviewItem {
+export class OverviewItemComponent {
     protected auth: AuthService = inject(AuthService);
     protected readonly DateUtils = DateUtils;
 
