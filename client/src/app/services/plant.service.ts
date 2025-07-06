@@ -22,37 +22,6 @@ export class PlantService {
     public readonly isLoading = this._isLoading.asReadonly();
     public readonly error = this._error.asReadonly();
 
-    /**
-     * Retrieves the access token and builds the Authorization header.
-     */
-    private async getAuthHeaders(): Promise<HttpHeaders> {
-        try {
-            const token = await firstValueFrom(this.auth.getAccessTokenSilently());
-            return new HttpHeaders({
-                Authorization: `Bearer ${token}`
-            });
-        } catch {
-            throw new PlantError('Failed to get authentication token', 401);
-        }
-    }
-
-    /**
-     * Handles HTTP errors and converts them to PlantError
-     */
-    private handleError(error: HttpErrorResponse): PlantError {
-        if (error.error instanceof ErrorEvent) {
-            // Client-side or network error
-            return new PlantError('Network error occurred', 0, 'NETWORK_ERROR');
-        } else {
-            // Server-side error
-            return new PlantError(
-                error.error?.message || 'An error occurred',
-                error.status,
-                error.error?.code,
-                error.error
-            );
-        }
-    }
 
     public async getAllPlants(): Promise<PlantOverview[]> {
         this._isLoading.set(true);
@@ -124,6 +93,36 @@ export class PlantService {
             const plantError = error instanceof PlantError ? error : this.handleError(error as HttpErrorResponse);
             console.error('Error adding watering:', plantError);
             throw plantError;
+        }
+    }
+
+    /**
+     * Retrieves the access token and builds the Authorization header.
+     */
+    private async getAuthHeaders(): Promise<HttpHeaders> {
+        try {
+            const token = await firstValueFrom(this.auth.getAccessTokenSilently());
+            return new HttpHeaders({
+                Authorization: `Bearer ${token}`
+            });
+        } catch {
+            throw new PlantError('Failed to get authentication token', 401);
+        }
+    }
+
+    /**
+     * Handles HTTP errors and converts them to PlantError
+     */
+    private handleError(error: HttpErrorResponse): PlantError {
+        if (error.error instanceof ErrorEvent) {
+            return new PlantError('Network error occurred', 0, 'NETWORK_ERROR');
+        } else {
+            return new PlantError(
+                error.error?.message || 'An error occurred',
+                error.status,
+                error.error?.code,
+                error.error
+            );
         }
     }
 }

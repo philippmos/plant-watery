@@ -26,7 +26,8 @@ export const routes: Routes = [
   },
   {
     path: 'plants',
-    component: OverviewComponent
+    component: OverviewComponent,
+    canActivate: [authGuard]
   },
   {
     path: 'plants/:id',
