@@ -1,20 +1,17 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Navigation } from "./components/layout/navigation/navigation";
-import { PageHeader } from "./components/layout/page-header/page-header";
+import { NavigationComponent } from "./components/layout/navigation/navigation.component";
 import { FooterComponent } from "./components/layout/footer/footer.component";
 
 @Component({
   selector: 'app-root',
   imports: [
     RouterOutlet,
-    Navigation,
-    PageHeader,
+    NavigationComponent,
     FooterComponent
 ],
-  templateUrl: './app.html',
-  styleUrl: './app.scss'
+  templateUrl: './app.component.html'
 })
-export class App {
+export class AppComponent {
   protected title = 'plant-watery';
 }

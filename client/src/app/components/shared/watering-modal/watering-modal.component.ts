@@ -1,14 +1,13 @@
 import { Component, EventEmitter, inject, Input, Output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { PlantOverview } from '../../interfaces/plant-overview';
-import { PlantService } from '../../services/plant.service';
+import { PlantOverview } from '../../../interfaces/plant-overview';
+import { PlantService } from '../../../services/plant.service';
 
 @Component({
     selector: 'app-watering-modal',
     standalone: true,
     imports: [FormsModule],
-    templateUrl: './watering-modal.component.html',
-    styleUrls: ['./watering-modal.component.scss']
+    templateUrl: './watering-modal.component.html'
 })
 export class WateringModalComponent {
     @Input() isOpen = false;

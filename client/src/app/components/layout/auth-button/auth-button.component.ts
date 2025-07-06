@@ -4,10 +4,10 @@ import { AuthService } from '@auth0/auth0-angular';
 @Component({
   selector: 'app-auth-button',
   imports: [],
-  templateUrl: './auth-button.html',
+  templateUrl: './auth-button.component.html',
   standalone: true
 })
-export class AuthButton {
+export class AuthButtonComponent {
   private auth: AuthService = inject(AuthService);
 
   protected loginWithRedirect() {

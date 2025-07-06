@@ -1,0 +1,90 @@
+<nav class="bg-gradient-to-r from-emerald-800 to-green-900 shadow-lg">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="flex h-16 items-center justify-between">
+            <div class="flex items-center space-x-8">
+                <div class="flex items-center space-x-3">
+                    <div class="flex items-center justify-center w-8 h-8 bg-emerald-600 rounded-lg">
+                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 2L8.5 8.5L2 10L8.5 11.5L10 18L11.5 11.5L18 10L11.5 8.5L10 2Z" />
+                        </svg>
+                    </div>
+                    <div class="text-white font-bold text-xl tracking-tight">
+                        Plant-Watery
+                    </div>
+                </div>
+
+                <div class="hidden md:block">
+                    <div class="flex items-center space-x-1">
+                        @for (item of navigationItems; track item.path) {
+                            @if (item.disabled) {
+                                <span class="rounded-lg px-4 py-2 text-sm font-medium text-emerald-300/50 cursor-not-allowed opacity-60 select-none">
+                                    {{ item.label }}
+                                </span>
+                            } @else {
+                                <a [routerLink]="[item.path]"
+                                    [class]="isActiveRoute(item.path) ? 
+                                                    'rounded-lg bg-emerald-700/50 px-4 py-2 text-sm font-medium text-white backdrop-blur-sm border border-emerald-600/20 hover:bg-emerald-600/60 transition-all duration-200 ease-in-out transform hover:scale-105' : 
+                                                    'rounded-lg px-4 py-2 text-sm font-medium text-emerald-100 hover:bg-emerald-700/40 hover:text-white transition-all duration-200 ease-in-out'"
+                                    [attr.aria-current]="isActiveRoute(item.path) ? 'page' : null">
+                                    {{ item.label }}
+                                </a>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="hidden md:block">
+                <app-user-navigation />
+            </div>
+
+            <div class="flex md:hidden">
+                <button type="button"
+                    class="relative inline-flex items-center justify-center rounded-lg bg-emerald-700/50 p-2 text-emerald-200 hover:bg-emerald-600/60 hover:text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-emerald-800 focus:outline-none backdrop-blur-sm border border-emerald-600/20 transition-all duration-200"
+                    aria-controls="mobile-menu" [attr.aria-expanded]="isMobileMenuOpen()" (click)="toggleMobileMenu()">
+                    <span class="absolute -inset-0.5"></span>
+                    <span class="sr-only">Main menu</span>
+                    <svg [class.hidden]="isMobileMenuOpen()" class="block size-6" fill="none" viewBox="0 0 24 24"
+                        stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                    </svg>
+                    <svg [class.hidden]="!isMobileMenuOpen()" class="size-6" fill="none" viewBox="0 0 24 24"
+                        stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="md:hidden" id="mobile-menu" [class.hidden]="!isMobileMenuOpen()">
+        <div class="px-2 pt-2 pb-3 space-y-1 bg-emerald-900/95 backdrop-blur-sm border-t border-emerald-700/30">
+            @for (item of navigationItems; track item.path) {
+                @if (item.disabled) {
+                    <span class="block rounded-lg px-4 py-3 text-base font-medium text-emerald-300/50 cursor-not-allowed opacity-60 select-none">
+                        <div class="flex items-center space-x-3">
+                            <span>{{ item.label }}</span>
+                        </div>
+                    </span>
+                } @else {
+                    <a [routerLink]="[item.path]"
+                        [class]="isActiveRoute(item.path) ? 
+                                    'block rounded-lg bg-emerald-700/60 px-4 py-3 text-base font-medium text-white border border-emerald-600/20' : 
+                                    'block rounded-lg px-4 py-3 text-base font-medium text-emerald-100 hover:bg-emerald-700/40 hover:text-white transition-all duration-200'"
+                        [attr.aria-current]="isActiveRoute(item.path) ? 'page' : null">
+                        <div class="flex items-center space-x-3">
+                            <span>{{ item.label }}</span>
+                        </div>
+                    </a>
+                }
+            }
+
+            <div class="pt-4 pb-3 border-t border-emerald-700/30">
+                <div class="px-2">
+                    <app-user-navigation />
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
