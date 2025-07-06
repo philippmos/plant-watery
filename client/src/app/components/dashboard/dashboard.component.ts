@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, computed } from '@angular/core';
+import { Component, OnInit, inject, computed, signal } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
 import { CommonModule } from '@angular/common';
 import { firstValueFrom } from 'rxjs';
@@ -8,11 +8,12 @@ import { DateUtils } from '../../utils/date.utils';
 import { LoginPromptComponent } from '../layout/login-prompt/login-prompt.component';
 import { RouterModule } from '@angular/router';
 import { DashboardTileComponent, DashboardTileData } from './dashboard-tile/dashboard-tile.component';
+import { WateringModalComponent } from '../shared/watering-modal/watering-modal.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, LoginPromptComponent, RouterModule, DashboardTileComponent],
+  imports: [CommonModule, LoginPromptComponent, RouterModule, DashboardTileComponent, WateringModalComponent],
   templateUrl: './dashboard.component.html'
 })
 export class DashboardComponent implements OnInit {
@@ -22,6 +23,10 @@ export class DashboardComponent implements OnInit {
   protected readonly isLoading = this.plantService.isLoading;
   protected readonly isAuthenticated = this.authService.isAuthenticated$;
   protected readonly allPlants = this.plantService.plants;
+  
+  // Watering Modal State
+  public readonly isWateringModalOpen = signal(false);
+  public readonly selectedPlantForWatering = signal<PlantOverview | null>(null);
   
   protected readonly plantsToWaterToday = computed(() => {
     return this.allPlants().filter(plant => 
@@ -101,5 +106,15 @@ export class DashboardComponent implements OnInit {
       return 'text-amber-600 dark:text-amber-400';
     }
     return 'text-emerald-600 dark:text-emerald-400';
+  }
+
+  public openWateringModal(plant: PlantOverview): void {
+    this.selectedPlantForWatering.set(plant);
+    this.isWateringModalOpen.set(true);
+  }
+
+  public closeWateringModal(): void {
+    this.isWateringModalOpen.set(false);
+    this.selectedPlantForWatering.set(null);
   }
 }

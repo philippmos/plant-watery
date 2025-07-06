@@ -1,7 +1,7 @@
 import { Component, inject, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '@auth0/auth0-angular';
-import { WateringModalComponent } from '../../watering-modal/watering-modal.component';
+import { WateringModalComponent } from '../../../shared/watering-modal/watering-modal.component';
 import { PlantOverview } from '../../../../interfaces/plant-overview';
 import { DateUtils } from '../../../../utils/date.utils';
 
