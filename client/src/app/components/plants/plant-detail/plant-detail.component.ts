@@ -1,15 +1,14 @@
 import { Component, effect, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { PlantService } from '../../services/plant.service';
-import { PlantDetail } from '../../interfaces/plant-detail';
 import { DatePipe } from '@angular/common';
+import { PlantService } from '../../../services/plant.service';
+import { PlantDetail } from '../../../interfaces/plant-detail';
 
 @Component({
   selector: 'app-plant-detail',
   imports: [DatePipe],
   standalone: true,
-  templateUrl: './plant-detail.component.html',
-  styleUrls: ['./plant-detail.component.scss']
+  templateUrl: './plant-detail.component.html'
 })
 export class PlantDetailComponent {
   private route = inject(ActivatedRoute);

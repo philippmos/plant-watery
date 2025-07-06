@@ -4,6 +4,7 @@ import { AuthService } from '@auth0/auth0-angular';
 import { map } from 'rxjs/operators';
 import { Overview } from './components/plants/overview/overview';
 import { PlantDetailComponent } from './components/plants/plant-detail/plant-detail.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 // Functional auth guard
 export const authGuard = () => {
@@ -21,7 +22,7 @@ export const routes: Routes = [
   },
   {
     path: 'dashboard',
-    component: Overview
+    component: DashboardComponent
   },
   {
     path: 'plants',

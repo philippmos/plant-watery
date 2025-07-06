@@ -7,8 +7,7 @@ import { PlantService } from '../../../services/plant.service';
     selector: 'app-watering-modal',
     standalone: true,
     imports: [FormsModule],
-    templateUrl: './watering-modal.component.html',
-    styleUrls: ['./watering-modal.component.scss']
+    templateUrl: './watering-modal.component.html'
 })
 export class WateringModalComponent {
     @Input() isOpen = false;

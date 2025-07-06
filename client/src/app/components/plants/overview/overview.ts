@@ -2,17 +2,16 @@ import { Component, OnInit, inject } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
 import { CommonModule } from '@angular/common';
 import { firstValueFrom } from 'rxjs';
-import { OverviewItem } from '../overview-item/overview-item';
 import { LoginPrompt } from '../../layout/login-prompt/login-prompt';
 import { PlantService } from '../../../services/plant.service';
 import { PlantOverview } from '../../../interfaces/plant-overview';
+import { OverviewItem } from './overview-item/overview-item';
 
 @Component({
   selector: 'app-overview',
   standalone: true,
   imports: [OverviewItem, LoginPrompt, CommonModule],
-  templateUrl: './overview.html',
-  styleUrls: ['./overview.scss']
+  templateUrl: './overview.html'
 })
 export class Overview implements OnInit {
   private plantService = inject(PlantService);

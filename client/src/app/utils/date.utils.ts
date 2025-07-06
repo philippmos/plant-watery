@@ -21,6 +21,21 @@ export class DateUtils {
     return this.daysSince(lastWateredDate) >= daysBetweenWatering;
   }
 
+  /**
+   * Determines if plant needs watering today
+   */
+  static needsWateringToday(lastWateredDate: Date | undefined, daysBetweenWatering = 7): boolean {
+    if (!lastWateredDate) return true;
+    return this.daysSince(lastWateredDate) >= daysBetweenWatering;
+  }
+
+  /**
+   * Determines if plant needs watering tomorrow
+   */
+  static needsWateringTomorrow(lastWateredDate: Date | undefined, daysBetweenWatering = 7): boolean {
+    if (!lastWateredDate) return false;
+    return this.daysSince(lastWateredDate) === (daysBetweenWatering - 1);
+  }
 
   /**
    * Calculates days since a given date
