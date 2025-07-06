@@ -10,11 +10,12 @@ import { RouterModule } from '@angular/router';
 import { DashboardTileComponent, DashboardTileData } from './dashboard-tile/dashboard-tile.component';
 import { WateringModalComponent } from '../shared/watering-modal/watering-modal.component';
 import { PlantSectionComponent, PlantSectionConfig } from './plant-section/plant-section.component';
+import { PageHeaderComponent, PageHeaderConfig } from '../shared/page-header/page-header.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, LoginPromptComponent, RouterModule, DashboardTileComponent, WateringModalComponent, PlantSectionComponent],
+  imports: [CommonModule, LoginPromptComponent, RouterModule, DashboardTileComponent, WateringModalComponent, PlantSectionComponent, PageHeaderComponent],
   templateUrl: './dashboard.component.html'
 })
 export class DashboardComponent implements OnInit {
@@ -25,7 +26,12 @@ export class DashboardComponent implements OnInit {
   protected readonly isAuthenticated = this.authService.isAuthenticated$;
   protected readonly allPlants = this.plantService.plants;
   
-  // Watering Modal State
+  protected readonly pageHeaderConfig: PageHeaderConfig = {
+    title: 'Dashboard',
+    subtitle: 'Überblick über Deine Pflanzen und deren Bewässerungsbedürfnisse',
+    icon: '🌱'
+  };
+  
   public readonly isWateringModalOpen = signal(false);
   public readonly selectedPlantForWatering = signal<PlantOverview | null>(null);
   
@@ -78,7 +84,6 @@ export class DashboardComponent implements OnInit {
     colorScheme: 'amber'
   }));
 
-  // Plant section configurations
   protected readonly todaySectionConfig: PlantSectionConfig = {
     title: '🚨 Heute gießen',
     subtitle: 'Diese Pflanzen brauchen dringend Wasser',

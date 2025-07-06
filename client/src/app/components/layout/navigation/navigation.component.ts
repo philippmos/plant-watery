@@ -9,6 +9,7 @@ interface NavigationItem {
   label: string;
   exactMatch?: boolean;
   aliases?: string[];
+  disabled?: boolean;
 }
 
 @Component({
@@ -39,7 +40,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
     {
       path: '/calendar',
       label: 'Kalender',
-      exactMatch: false
+      exactMatch: false,
+      disabled: true
     }
   ];
 

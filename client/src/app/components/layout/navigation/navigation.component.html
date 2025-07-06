@@ -16,13 +16,19 @@
                 <div class="hidden md:block">
                     <div class="flex items-center space-x-1">
                         @for (item of navigationItems; track item.path) {
-                            <a [routerLink]="[item.path]"
-                                [class]="isActiveRoute(item.path) ? 
-                                                'rounded-lg bg-emerald-700/50 px-4 py-2 text-sm font-medium text-white backdrop-blur-sm border border-emerald-600/20 hover:bg-emerald-600/60 transition-all duration-200 ease-in-out transform hover:scale-105' : 
-                                                'rounded-lg px-4 py-2 text-sm font-medium text-emerald-100 hover:bg-emerald-700/40 hover:text-white transition-all duration-200 ease-in-out'"
-                                [attr.aria-current]="isActiveRoute(item.path) ? 'page' : null">
-                                {{ item.label }}
-                            </a>
+                            @if (item.disabled) {
+                                <span class="rounded-lg px-4 py-2 text-sm font-medium text-emerald-300/50 cursor-not-allowed opacity-60 select-none">
+                                    {{ item.label }}
+                                </span>
+                            } @else {
+                                <a [routerLink]="[item.path]"
+                                    [class]="isActiveRoute(item.path) ? 
+                                                    'rounded-lg bg-emerald-700/50 px-4 py-2 text-sm font-medium text-white backdrop-blur-sm border border-emerald-600/20 hover:bg-emerald-600/60 transition-all duration-200 ease-in-out transform hover:scale-105' : 
+                                                    'rounded-lg px-4 py-2 text-sm font-medium text-emerald-100 hover:bg-emerald-700/40 hover:text-white transition-all duration-200 ease-in-out'"
+                                    [attr.aria-current]="isActiveRoute(item.path) ? 'page' : null">
+                                    {{ item.label }}
+                                </a>
+                            }
                         }
                     </div>
                 </div>
@@ -55,15 +61,23 @@
     <div class="md:hidden" id="mobile-menu" [class.hidden]="!isMobileMenuOpen()">
         <div class="px-2 pt-2 pb-3 space-y-1 bg-emerald-900/95 backdrop-blur-sm border-t border-emerald-700/30">
             @for (item of navigationItems; track item.path) {
-                <a [routerLink]="[item.path]"
-                    [class]="isActiveRoute(item.path) ? 
-                                'block rounded-lg bg-emerald-700/60 px-4 py-3 text-base font-medium text-white border border-emerald-600/20' : 
-                                'block rounded-lg px-4 py-3 text-base font-medium text-emerald-100 hover:bg-emerald-700/40 hover:text-white transition-all duration-200'"
-                    [attr.aria-current]="isActiveRoute(item.path) ? 'page' : null">
-                    <div class="flex items-center space-x-3">
-                        <span>{{ item.label }}</span>
-                    </div>
-                </a>
+                @if (item.disabled) {
+                    <span class="block rounded-lg px-4 py-3 text-base font-medium text-emerald-300/50 cursor-not-allowed opacity-60 select-none">
+                        <div class="flex items-center space-x-3">
+                            <span>{{ item.label }}</span>
+                        </div>
+                    </span>
+                } @else {
+                    <a [routerLink]="[item.path]"
+                        [class]="isActiveRoute(item.path) ? 
+                                    'block rounded-lg bg-emerald-700/60 px-4 py-3 text-base font-medium text-white border border-emerald-600/20' : 
+                                    'block rounded-lg px-4 py-3 text-base font-medium text-emerald-100 hover:bg-emerald-700/40 hover:text-white transition-all duration-200'"
+                        [attr.aria-current]="isActiveRoute(item.path) ? 'page' : null">
+                        <div class="flex items-center space-x-3">
+                            <span>{{ item.label }}</span>
+                        </div>
+                    </a>
+                }
             }
 
             <div class="pt-4 pb-3 border-t border-emerald-700/30">
