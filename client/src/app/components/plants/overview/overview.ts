@@ -1,11 +1,11 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { OverviewItem } from '../overview-item/overview-item';
-import { PlantService } from '../../services/plant.service';
-import { PlantOverview } from '../../interfaces/plant-overview';
 import { AuthService } from '@auth0/auth0-angular';
-import { LoginPrompt } from '../layout/login-prompt/login-prompt';
 import { CommonModule } from '@angular/common';
 import { firstValueFrom } from 'rxjs';
+import { OverviewItem } from '../overview-item/overview-item';
+import { LoginPrompt } from '../../layout/login-prompt/login-prompt';
+import { PlantService } from '../../../services/plant.service';
+import { PlantOverview } from '../../../interfaces/plant-overview';
 
 @Component({
   selector: 'app-overview',

@@ -2,8 +2,8 @@ import { Component, inject, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { WateringModalComponent } from '../watering-modal/watering-modal.component';
 import { AuthService } from '@auth0/auth0-angular';
-import { PlantOverview } from '../../interfaces/plant-overview';
-import { DateUtils } from '../../utils/date.utils';
+import { PlantOverview } from '../../../interfaces/plant-overview';
+import { DateUtils } from '../../../utils/date.utils';
 
 @Component({
     selector: 'app-overview-item',
