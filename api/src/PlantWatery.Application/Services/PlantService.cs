@@ -17,6 +17,11 @@ public class PlantService(
     {
         var plant = await plantRepo.GetByIdForUserWithAllAsync(id, userContext.GetSub());
 
+        if (plant is not null && plant.WateringEvents is not null)
+        {
+            plant.WateringEvents = plant.WateringEvents.OrderByDescending(e => e.DateTime);
+        }
+
         return plant is null 
             ? null 
             : PlantDetailDto.FromEntity(plant);
