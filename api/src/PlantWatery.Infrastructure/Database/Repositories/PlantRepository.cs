@@ -10,6 +10,7 @@ public class PlantRepository(DatabaseContext dbContext) : Repository<PlantEntity
         DbContext.Plants
             .Include(p => p.Location)
             .Include(p => p.WateringEvents)
+            .Include(p => p.WateringInterval)
             .Where(p => p.User.IdpSub == userSub);
 
     public async Task<PlantEntity?> GetByIdForUserWithAllAsync(Guid id, string userSub)

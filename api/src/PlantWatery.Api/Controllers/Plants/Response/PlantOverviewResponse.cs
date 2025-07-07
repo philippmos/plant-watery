@@ -1,4 +1,4 @@
-﻿using PlantWatery.Domain.Dtos;
+using PlantWatery.Domain.Dtos;
 
 namespace PlantWatery.Api.Controllers.Plants.Response;
 
@@ -7,8 +7,15 @@ public record PlantOverviewResponse(
     string Title,
     string ImageUrl,
     string LocationName,
-    DateTime? LastWateredDateTime)
+    DateTime? LastWateredDateTime,
+    int? WateringIntervalInDays)
 {
     public static PlantOverviewResponse FromDto(PlantOverviewDto dto) 
-        => new (dto.Id, dto.Title, dto.ImageUrl, dto.LocationName, dto.LastWateredDateTime);
+        => new (
+            dto.Id,
+            dto.Title,
+            dto.ImageUrl,
+            dto.LocationName,
+            dto.LastWateredDateTime,
+            dto.WateringIntervalInDays);
 }
