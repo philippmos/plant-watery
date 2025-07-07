@@ -38,6 +38,14 @@ export class DateUtils {
   }
 
   /**
+   * Determines if plant hasn't been watered for more than a week
+   */
+  static notWateredForMoreThanWeek(lastWateredDate: Date | undefined): boolean {
+    if (!lastWateredDate) return true;
+    return this.daysSince(lastWateredDate) > 7;
+  }
+
+  /**
    * Calculates days since a given date
    */
   private static daysSince(date: Date): number {
