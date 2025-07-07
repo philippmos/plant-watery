@@ -21,18 +21,23 @@ export class OverviewComponent implements OnInit {
   
   protected readonly showOnlyNeedWatering = signal(false);
   protected readonly selectedLocation = signal<string | null>(null);
+
+  /**
+   * Gets the watering interval for a plant, falling back to 7 days if not specified
+   */
+  private getWateringInterval(plant: PlantOverview): number {
+    return plant.wateringIntervalInDays || 7;
+  }
   
   protected readonly items = computed(() => {
     let plants = this.allPlants();
     
-    // Filter by location first
     if (this.selectedLocation()) {
       plants = plants.filter(plant => plant.locationName === this.selectedLocation());
     }
     
-    // Then filter by watering needs
     if (this.showOnlyNeedWatering()) {
-      plants = plants.filter(plant => DateUtils.notWateredForMoreThanWeek(plant.lastWateredDateTime));
+      plants = plants.filter((plant: PlantOverview) => DateUtils.notWateredForMoreThanInterval(plant.lastWateredDateTime, this.getWateringInterval(plant)));
     }
     
     return plants;
@@ -63,14 +68,12 @@ export class OverviewComponent implements OnInit {
   protected get plantsNeedingWaterCount(): number {
     let plants = this.allPlants();
     
-    // Filter by location if selected
     if (this.selectedLocation()) {
       plants = plants.filter(plant => plant.locationName === this.selectedLocation());
     }
     
-    // Filter by watering needs
-    return plants.filter(plant => 
-      DateUtils.notWateredForMoreThanWeek(plant.lastWateredDateTime)
+    return plants.filter((plant: PlantOverview) => 
+      DateUtils.notWateredForMoreThanInterval(plant.lastWateredDateTime, this.getWateringInterval(plant))
     ).length;
   }
 }
