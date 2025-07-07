@@ -7,5 +7,6 @@ public class PlantEntity : BaseEntity
 
     public virtual LocationEntity Location { get; set; } = default!;
     public virtual IEnumerable<WateringEventEntity>? WateringEvents { get; set; }
+    public virtual WateringIntervalEntity? WateringInterval { get; set; } = default!;
     public virtual UserEntity User { get; set; } = default!;
 }

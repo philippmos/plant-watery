@@ -19,12 +19,13 @@ import { PageHeaderComponent, PageHeaderConfig } from '../shared/page-header/pag
   templateUrl: './dashboard.component.html'
 })
 export class DashboardComponent implements OnInit {
-  private plantService = inject(PlantService);
-  private authService = inject(AuthService);
-  
+  private auth: AuthService = inject(AuthService);
+  private plantService: PlantService = inject(PlantService);
+  private allPlants = this.plantService.plants;
+
   protected readonly isLoading = this.plantService.isLoading;
-  protected readonly isAuthenticated = this.authService.isAuthenticated$;
-  protected readonly allPlants = this.plantService.plants;
+  protected readonly isAuthenticated = this.auth.isAuthenticated$;
+  protected readonly totalPlants = computed(() => this.allPlants().length);
   
   protected readonly pageHeaderConfig: PageHeaderConfig = {
     title: 'Dashboard',
@@ -35,24 +36,29 @@ export class DashboardComponent implements OnInit {
   public readonly isWateringModalOpen = signal(false);
   public readonly selectedPlantForWatering = signal<PlantOverview | null>(null);
   
+  /**
+   * Gets the watering interval for a plant, falling back to 7 days if not specified
+   */
+  private getWateringInterval(plant: PlantOverview): number {
+    return plant.wateringIntervalInDays || 7;
+  }
+  
   protected readonly plantsToWaterToday = computed(() => {
-    return this.allPlants().filter(plant => 
-      DateUtils.needsWateringToday(plant.lastWateredDateTime)
+    return this.allPlants().filter((plant: PlantOverview) => 
+      DateUtils.needsWateringToday(plant.lastWateredDateTime, this.getWateringInterval(plant))
     );
   });
   
   protected readonly plantsToWaterTomorrow = computed(() => {
-    return this.allPlants().filter(plant => 
-      DateUtils.needsWateringTomorrow(plant.lastWateredDateTime)
+    return this.allPlants().filter((plant: PlantOverview) => 
+      DateUtils.needsWateringTomorrow(plant.lastWateredDateTime, this.getWateringInterval(plant))
     );
   });
   
-  protected readonly totalPlants = computed(() => this.allPlants().length);
-  
   protected readonly healthyPlants = computed(() => {
-    return this.allPlants().filter(plant => 
-      !DateUtils.needsWateringToday(plant.lastWateredDateTime) && 
-      !DateUtils.needsWateringTomorrow(plant.lastWateredDateTime)
+    return this.allPlants().filter((plant: PlantOverview) => 
+      !DateUtils.needsWateringToday(plant.lastWateredDateTime, this.getWateringInterval(plant)) && 
+      !DateUtils.needsWateringTomorrow(plant.lastWateredDateTime, this.getWateringInterval(plant))
     ).length;
   });
 
@@ -127,7 +133,7 @@ export class DashboardComponent implements OnInit {
   };
 
   async ngOnInit() {
-    const isAuthenticated = await firstValueFrom(this.authService.isAuthenticated$);
+    const isAuthenticated = await firstValueFrom(this.auth.isAuthenticated$);
     
     if (isAuthenticated) {
       await this.plantService.getAllPlants();

@@ -4,4 +4,5 @@ export interface PlantOverview {
     title: string;
     locationName: string;
     lastWateredDateTime?: Date;
+    wateringIntervalInDays?: number;
 }

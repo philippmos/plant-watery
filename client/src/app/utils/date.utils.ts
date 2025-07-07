@@ -38,11 +38,19 @@ export class DateUtils {
   }
 
   /**
+   * Determines if plant hasn't been watered for more than the specified interval
+   */
+  static notWateredForMoreThanInterval(lastWateredDate: Date | undefined, daysBetweenWatering = 7): boolean {
+    if (!lastWateredDate) return true;
+    return this.daysSince(lastWateredDate) > daysBetweenWatering;
+  }
+
+  /**
    * Determines if plant hasn't been watered for more than a week
+   * @deprecated Use notWateredForMoreThanInterval instead
    */
   static notWateredForMoreThanWeek(lastWateredDate: Date | undefined): boolean {
-    if (!lastWateredDate) return true;
-    return this.daysSince(lastWateredDate) > 7;
+    return this.notWateredForMoreThanInterval(lastWateredDate, 7);
   }
 
   /**
