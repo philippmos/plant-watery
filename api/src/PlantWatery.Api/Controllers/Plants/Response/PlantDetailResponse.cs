@@ -7,15 +7,17 @@ public record PlantDetailResponse(
     string Title,
     string ImageUrl,
     string LocationName,
+    int? WateringIntervalInDays,
     IEnumerable<WateringEventPlantOverviewResponse> WateringEvents)
 {
-    public static PlantDetailResponse FromDto(PlantDetailDto entity)
+    public static PlantDetailResponse FromDto(PlantDetailDto dto)
         => new(
-            entity.Id,
-            entity.Title,
-            entity.ImageUrl,
-            entity.LocationName,
-            entity.WateringEvents.Select(WateringEventPlantOverviewResponse.FromDto) ?? []);
+            dto.Id,
+            dto.Title,
+            dto.ImageUrl,
+            dto.LocationName,
+            dto.WateringIntervalInDays,
+            dto.WateringEvents.Select(WateringEventPlantOverviewResponse.FromDto) ?? []);
 }
 
 

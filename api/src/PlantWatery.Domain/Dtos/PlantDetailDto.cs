@@ -7,6 +7,7 @@ public record PlantDetailDto(
     string Title,
     string ImageUrl,
     string LocationName,
+    int? WateringIntervalInDays,
     IEnumerable<WateringEventDto> WateringEvents)
 {
     public static PlantDetailDto FromEntity(PlantEntity entity)
@@ -15,5 +16,6 @@ public record PlantDetailDto(
             entity.Title,
             entity.ImageUrl,
             entity.Location.Title,
+            entity.WateringInterval?.IntervalInDays,
             entity.WateringEvents?.Select(WateringEventDto.FromEntity) ?? []);
 }

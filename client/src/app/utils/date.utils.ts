@@ -54,11 +54,17 @@ export class DateUtils {
   }
 
   /**
-   * Calculates days since a given date
+   * Calculates days since a given date (based on calendar days, not exact time)
    */
   private static daysSince(date: Date): number {
     const now = new Date();
-    const diffTime = Math.abs(now.getTime() - date.getTime());
+    const givenDate = new Date(date);
+    
+    // Reset time to midnight for both dates to compare only calendar days
+    now.setHours(0, 0, 0, 0);
+    givenDate.setHours(0, 0, 0, 0);
+    
+    const diffTime = now.getTime() - givenDate.getTime();
     return Math.floor(diffTime / (1000 * 60 * 60 * 24));
   }
 }

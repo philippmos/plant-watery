@@ -3,6 +3,7 @@ export interface PlantDetail {
     title: string;
     imageUrl: string;
     locationName: string;
+    wateringIntervalInDays?: number;
     wateringEvents: {
         id: string;
         dateTime: Date;

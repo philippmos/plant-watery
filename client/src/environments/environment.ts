@@ -1,4 +1,4 @@
-import config from '../../auth_config.json';
+import config from '../../configuration.json';
 
 interface AuthConfig {
   isProduction: boolean;

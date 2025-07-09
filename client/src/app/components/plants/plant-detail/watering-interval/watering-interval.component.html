@@ -1,0 +1,88 @@
+<div class="bg-gradient-to-br from-white/95 to-emerald-50/95 dark:from-gray-900/95 dark:to-emerald-900/95 backdrop-blur-sm border border-emerald-200/30 dark:border-emerald-700/30 rounded-xl shadow-xl p-6 sm:p-8 transition-all duration-300 hover:shadow-2xl hover:border-emerald-300/50 dark:hover:border-emerald-600/50 mb-6">
+    <div class="flex items-center space-x-3 mb-6">
+        <div class="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-teal-600 to-cyan-700 rounded-xl shadow-lg">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+        </div>
+        <div>
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Gieß-Intervalle</h2>
+            <p class="text-sm text-gray-600 dark:text-gray-300">Bewässerungsrhythmus für optimales Wachstum</p>
+        </div>
+    </div>
+
+    @if (wateringIntervalInDays() && wateringIntervalInDays()! > 0) {
+        <div class="bg-gradient-to-r from-teal-50/50 to-cyan-50/50 dark:from-teal-900/20 dark:to-cyan-900/20 backdrop-blur-sm border border-teal-200/40 dark:border-teal-700/40 rounded-lg p-6">
+            <div class="flex items-center space-x-4">
+                <div class="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-teal-500 to-cyan-600 rounded-full flex items-center justify-center shadow-lg">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"/>
+                    </svg>
+                </div>
+                
+                <div class="flex-1">
+                    <div class="flex items-baseline space-x-2 mb-2">
+                        <span class="text-3xl font-bold text-teal-800 dark:text-teal-200">
+                            {{ wateringIntervalInDays() }}
+                        </span>
+                        <span class="text-lg text-teal-600 dark:text-teal-300 font-medium">
+                            @if (wateringIntervalInDays() === 1) {
+                                Tag
+                            } @else {
+                                Tage
+                            }
+                        </span>
+                    </div>
+                    
+                    <p class="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
+                        @if (wateringIntervalInDays() === 1) {
+                            Diese Pflanze sollte täglich gegossen werden
+                        } @else if (wateringIntervalInDays()! <= 3) {
+                            Diese Pflanze benötigt häufige Bewässerung
+                        } @else if (wateringIntervalInDays()! <= 7) {
+                            Diese Pflanze benötigt regelmäßige Bewässerung
+                        } @else {
+                            Diese Pflanze ist pflegeleicht und benötigt seltene Bewässerung
+                        }
+                    </p>
+                    
+                    <div class="mt-3 flex items-center space-x-2 text-xs text-teal-600 dark:text-teal-400">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <span>Empfohlenes Bewässerungsintervall</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    } @else {
+        <!-- Debug-Bereich (nur wenn showDebug aktiviert ist) -->
+        @if (showDebug()) {
+            <div class="bg-gradient-to-r from-purple-50/50 to-indigo-50/50 dark:from-purple-900/20 dark:to-indigo-900/20 backdrop-blur-sm border border-purple-200/40 dark:border-purple-700/40 rounded-lg p-4 mb-4">
+                <details class="text-sm">
+                    <summary class="cursor-pointer text-purple-800 dark:text-purple-200 font-medium">Debug: Pflanzendaten anzeigen</summary>
+                    <pre class="mt-2 text-xs text-purple-700 dark:text-purple-300 whitespace-pre-wrap">{{ plantData() | json }}</pre>
+                </details>
+            </div>
+        }
+
+        <div class="bg-gradient-to-r from-amber-50/50 to-orange-50/50 dark:from-amber-900/20 dark:to-orange-900/20 backdrop-blur-sm border border-amber-200/40 dark:border-amber-700/40 rounded-lg p-6">
+            <div class="flex items-center space-x-4">
+                <div class="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-600 rounded-full flex items-center justify-center shadow-md">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"/>
+                    </svg>
+                </div>
+                
+                <div class="flex-1">
+                    <h3 class="text-lg font-semibold text-amber-800 dark:text-amber-200 mb-1">
+                        Kein Gieß-Intervall festgelegt
+                    </h3>
+                    <p class="text-amber-700 dark:text-amber-300 text-sm">
+                        Für diese Pflanze wurde noch kein spezifisches Bewässerungsintervall konfiguriert.
+                    </p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
