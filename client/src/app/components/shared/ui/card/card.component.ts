@@ -1,12 +1,11 @@
 import { Component, input } from '@angular/core';
-import { NgClass } from '@angular/common';
 
 export type CardVariant = 'default' | 'emerald' | 'blue' | 'amber' | 'red' | 'purple' | 'gray';
 
 @Component({
   selector: 'app-card',
   standalone: true,
-  imports: [NgClass],
+  imports: [],
   template: `
     <div [class]="getCardClasses()">
       <ng-content></ng-content>

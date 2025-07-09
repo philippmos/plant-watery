@@ -1,5 +1,4 @@
 import { Component, input } from '@angular/core';
-import { NgClass } from '@angular/common';
 
 export type LoadingSize = 'sm' | 'md' | 'lg' | 'xl';
 export type LoadingVariant = 'spinner' | 'pulse' | 'bounce';
@@ -7,7 +6,7 @@ export type LoadingVariant = 'spinner' | 'pulse' | 'bounce';
 @Component({
   selector: 'app-loading',
   standalone: true,
-  imports: [NgClass],
+  imports: [],
   template: `
     @if (variant() === 'spinner') {
       <div [class]="getSpinnerClasses()"></div>

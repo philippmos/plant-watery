@@ -1,5 +1,4 @@
 import { Component, input, output } from '@angular/core';
-import { NgClass } from '@angular/common';
 
 export type ButtonVariant = 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'info' | 'light' | 'dark';
 export type ButtonSize = 'sm' | 'md' | 'lg';
@@ -7,7 +6,7 @@ export type ButtonSize = 'sm' | 'md' | 'lg';
 @Component({
   selector: 'app-button',
   standalone: true,
-  imports: [NgClass],
+  imports: [],
   template: `
     <button 
       [class]="getButtonClasses()"

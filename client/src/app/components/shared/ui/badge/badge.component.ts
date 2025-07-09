@@ -1,5 +1,4 @@
 import { Component, input } from '@angular/core';
-import { NgClass } from '@angular/common';
 
 export type BadgeVariant = 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'info' | 'light' | 'dark';
 export type BadgeSize = 'sm' | 'md' | 'lg';
@@ -7,7 +6,7 @@ export type BadgeSize = 'sm' | 'md' | 'lg';
 @Component({
   selector: 'app-badge',
   standalone: true,
-  imports: [NgClass],
+  imports: [],
   template: `
     <div [class]="getBadgeClasses()">
       @if (icon()) {
