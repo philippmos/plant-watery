@@ -1,18 +1,24 @@
 import config from '../../auth_config.json';
 
-const { domain, clientId, authorizationParams: { audience }, apiUri, errorPath } = config as {
-  domain: string;
-  clientId: string;
-  authorizationParams: {
-    audience?: string;
-  },
-  apiUri: string;
-  errorPath: string;
-};
+interface AuthConfig {
+  isProduction: boolean;
+  auth: {
+    domain: string;
+    clientId: string;
+    authorizationParams: {
+      audience?: string;
+    };
+    apiUri: string;
+    errorPath: string;
+  };
+  backendApiUrl: string;
+}
+
+const { isProduction, auth: { domain, clientId, authorizationParams: { audience }, apiUri, errorPath }, backendApiUrl } = config as AuthConfig;
 
 export const environment = {
-  production: false,
-  plantApiUrl: 'https://localhost:7127/Plants',
+  production: isProduction,
+  plantApiUrl: backendApiUrl,
   auth: {
     domain,
     clientId,
