@@ -69,6 +69,7 @@ export class PlantService {
 
             return {
                 ...data,
+                wateringIntervalInDays: data.wateringIntervalInDays,
                 wateringEvents: data.wateringEvents?.map(e => ({
                     ...e,
                     dateTime: new Date(e.dateTime)

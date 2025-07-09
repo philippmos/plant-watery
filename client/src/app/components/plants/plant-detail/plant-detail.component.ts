@@ -3,10 +3,11 @@ import { ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { PlantService } from '../../../services/plant.service';
 import { PlantDetail } from '../../../interfaces/plant-detail';
+import { WateringIntervalComponent } from './watering-interval/watering-interval.component';
 
 @Component({
   selector: 'app-plant-detail',
-  imports: [DatePipe],
+  imports: [DatePipe, WateringIntervalComponent],
   standalone: true,
   templateUrl: './plant-detail.component.html'
 })
