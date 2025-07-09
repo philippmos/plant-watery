@@ -46,7 +46,7 @@ export class OverviewComponent implements OnInit {
   protected readonly pageHeaderConfig: PageHeaderConfig = {
     title: 'Pflanzen-Übersicht',
     subtitle: 'Alle Deine Pflanzen auf einen Blick',
-    icon: '🌿'
+    icon: 'plants'
   };
 
   async ngOnInit() {

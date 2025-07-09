@@ -1,9 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
+import { ButtonComponent } from '../../shared/ui';
 
 @Component({
   selector: 'app-auth-button',
-  imports: [],
+  imports: [ButtonComponent],
   templateUrl: './auth-button.component.html',
   standalone: true
 })

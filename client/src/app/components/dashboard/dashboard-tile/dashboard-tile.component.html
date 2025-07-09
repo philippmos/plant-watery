@@ -1,33 +1,18 @@
-<div [class]="getColorClasses() + ' backdrop-blur-sm border rounded-xl p-6 shadow-lg transition-all duration-300 hover:shadow-xl'">
+<app-card [variant]="getCardVariant()" [padding]="'md'">
   <div class="flex items-center justify-between">
     <div>
-      <p [class]="'text-sm font-medium ' + getTextColorClasses()">{{ data().title }}</p>
-      <p [class]="'text-2xl font-bold ' + getValueColorClasses()">{{ data().value }}</p>
+      <p [class]="'text-sm font-medium text-' + data().colorScheme + '-600 dark:text-' + data().colorScheme + '-400'">
+        {{ data().title }}
+      </p>
+      <p [class]="'text-2xl font-bold text-' + data().colorScheme + '-900 dark:text-' + data().colorScheme + '-100'">
+        {{ data().value }}
+      </p>
     </div>
-    <div [class]="'w-12 h-12 rounded-full flex items-center justify-center ' + getIconColorClasses()">
-      @if (data().iconType === 'total') {
-        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4"/>
-        </svg>
-      }
-      
-      @if (data().iconType === 'healthy') {
-        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-        </svg>
-      }
-      
-      @if (data().iconType === 'water-today') {
-        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-        </svg>
-      }
-      
-      @if (data().iconType === 'water-tomorrow') {
-        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
-        </svg>
-      }
-    </div>
+    <app-icon-container 
+      [icon]="getIconType()" 
+      [variant]="getIconVariant()" 
+      [size]="'lg'"
+      [rounded]="'full'">
+    </app-icon-container>
   </div>
-</div>
+</app-card>
