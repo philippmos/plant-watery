@@ -10,5 +10,4 @@ import { JsonPipe } from '@angular/common';
 export class WateringIntervalComponent {
   wateringIntervalInDays = input<number | null | undefined>(); 
   plantData = input<Record<string, unknown>>();
-  showDebug = input<boolean>(false);
 }

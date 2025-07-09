@@ -56,16 +56,6 @@
             </div>
         </div>
     } @else {
-        <!-- Debug-Bereich (nur wenn showDebug aktiviert ist) -->
-        @if (showDebug()) {
-            <div class="bg-gradient-to-r from-purple-50/50 to-indigo-50/50 dark:from-purple-900/20 dark:to-indigo-900/20 backdrop-blur-sm border border-purple-200/40 dark:border-purple-700/40 rounded-lg p-4 mb-4">
-                <details class="text-sm">
-                    <summary class="cursor-pointer text-purple-800 dark:text-purple-200 font-medium">Debug: Pflanzendaten anzeigen</summary>
-                    <pre class="mt-2 text-xs text-purple-700 dark:text-purple-300 whitespace-pre-wrap">{{ plantData() | json }}</pre>
-                </details>
-            </div>
-        }
-
         <div class="bg-gradient-to-r from-amber-50/50 to-orange-50/50 dark:from-amber-900/20 dark:to-orange-900/20 backdrop-blur-sm border border-amber-200/40 dark:border-amber-700/40 rounded-lg p-6">
             <div class="flex items-center space-x-4">
                 <div class="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-600 rounded-full flex items-center justify-center shadow-md">
