@@ -13,5 +13,26 @@ services:
       - postgres_data:/var/lib/postgresql/data
     restart: unless-stopped
 
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: plantwatery_api
+    env_file: .env
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8080
+      - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=${POSTGRES_DB};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}
+      - Auth__Authority=${AUTH_AUTHORITY}
+      - Auth__Audience=${AUTH_AUDIENCE}
+      - Auth__Issuer=${AUTH_ISSUER}
+      - CorsPolicy__AllowedOrigins__0=${CORS_ORIGIN_1}
+      - CorsPolicy__AllowedOrigins__1=${CORS_ORIGIN_2}
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    restart: unless-stopped
+
 volumes:
   postgres_data:
