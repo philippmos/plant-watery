@@ -2,11 +2,12 @@ import { Component, EventEmitter, inject, Input, Output, signal } from '@angular
 import { FormsModule } from '@angular/forms';
 import { PlantOverview } from '../../../interfaces/plant-overview';
 import { PlantService } from '../../../services/plant.service';
+import { CardComponent, ButtonComponent, IconContainerComponent } from '../ui';
 
 @Component({
     selector: 'app-watering-modal',
     standalone: true,
-    imports: [FormsModule],
+    imports: [FormsModule, CardComponent, ButtonComponent, IconContainerComponent],
     templateUrl: './watering-modal.component.html'
 })
 export class WateringModalComponent {

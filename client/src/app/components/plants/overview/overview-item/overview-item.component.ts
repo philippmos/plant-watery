@@ -4,11 +4,12 @@ import { AuthService } from '@auth0/auth0-angular';
 import { WateringModalComponent } from '../../../shared/watering-modal/watering-modal.component';
 import { PlantOverview } from '../../../../interfaces/plant-overview';
 import { DateUtils } from '../../../../utils/date.utils';
+import { CardComponent, ButtonComponent, BadgeComponent } from '../../../shared/ui';
 
 @Component({
     selector: 'app-overview-item',
     standalone: true,
-    imports: [RouterLink, WateringModalComponent],
+    imports: [RouterLink, WateringModalComponent, CardComponent, ButtonComponent, BadgeComponent],
     templateUrl: './overview-item.component.html'
 })
 export class OverviewItemComponent {

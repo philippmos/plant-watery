@@ -30,7 +30,7 @@ export class DashboardComponent implements OnInit {
   protected readonly pageHeaderConfig: PageHeaderConfig = {
     title: 'Dashboard',
     subtitle: 'Überblick über Deine Pflanzen und deren Bewässerungsbedürfnisse',
-    icon: '🌱'
+    icon: 'plants'
   };
   
   public readonly isWateringModalOpen = signal(false);
