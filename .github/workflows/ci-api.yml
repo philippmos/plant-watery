@@ -1,0 +1,25 @@
+name: PlantWatery API CI
+
+permissions:
+  contents: read
+
+on:
+  push:
+    branches: ["**"]
+    paths:
+      - "api/**"
+      - ".github/workflows/ci-api.yml"
+  pull_request:
+    branches: ["**"]
+    paths:
+      - "api/**"
+      - ".github/workflows/ci-api.yml"
+
+jobs:
+  build:
+    uses: ./.github/workflows/docker-build-and-push-template.yml
+    secrets: inherit
+    with:
+      image_name: plantwatery-api
+      context: api
+      dockerfile: api/Dockerfile

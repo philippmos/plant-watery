@@ -1,15 +1,18 @@
-FROM node:alpine
-
-WORKDIR /usr/src/app
+# syntax=docker/dockerfile:1.7
+FROM node:20-alpine AS builder
+WORKDIR /app
 
 COPY package*.json ./
-
-RUN npm install -g @angular/cli
-
-RUN npm install
+RUN npm ci
 
 COPY . .
 
-EXPOSE 4200
+ARG BUILD_CONFIGURATION=production
+RUN npm run build -- --configuration ${BUILD_CONFIGURATION}
 
-CMD ["ng", "serve", "--host", "0.0.0.0", "--port", "4200"]
+FROM nginx:1.27-alpine AS final
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=builder /app/dist/plant-watery/browser /usr/share/nginx/html
+
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

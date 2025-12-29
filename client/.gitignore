@@ -41,6 +41,6 @@ testem.log
 .DS_Store
 Thumbs.db
 
-configuration.json
+local.configuration.json
 public/images/*
 public/data/*
