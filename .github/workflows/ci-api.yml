@@ -1,5 +1,8 @@
 name: PlantWatery API CI
 
+permissions:
+  contents: read
+
 on:
   push:
     branches: ["**"]
