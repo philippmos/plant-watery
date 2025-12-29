@@ -33,21 +33,18 @@ public static class PmoApi
     {
         var app = builder.Build();
 
-        if (app.Environment.IsDevelopment())
+        app.MapOpenApi("/openapi/openapi.json");
+        app.MapScalarApiReference(options =>
         {
-            app.MapOpenApi("/openapi/openapi.json");
-            app.MapScalarApiReference(options =>
-            {
-                options.Title = "Plant Watery API";
-                options.OpenApiRoutePattern = "/openapi/openapi.json";
-                options.EndpointPathPrefix = "/docs/{documentName}";
-                options.DefaultHttpClient = new(ScalarTarget.CSharp, ScalarClient.HttpClient);
-            });
-        }
+            options.Title = "Plant Watery API";
+            options.OpenApiRoutePattern = "/openapi/openapi.json";
+            options.EndpointPathPrefix = "/docs/{documentName}";
+            options.DefaultHttpClient = new(ScalarTarget.CSharp, ScalarClient.HttpClient);
+        });
 
         app.UseCors("AllowClient");
 
-        app.UseHttpsRedirection();
+        // app.UseHttpsRedirection();
 
         app.UseAuthentication();
         app.UseAuthorization();
