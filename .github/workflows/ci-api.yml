@@ -14,7 +14,7 @@ on:
 
 jobs:
   build:
-    uses: ./.github/workflows/templates/docker-build-and-push.yml
+    uses: ./.github/workflows/docker-build-and-push-template.yml
     secrets: inherit
     with:
       image_name: plantwatery-api
