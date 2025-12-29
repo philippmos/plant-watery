@@ -1,9 +1,9 @@
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS builder
 ARG informationalversion=unpublished
 
-COPY api/src/. api/src/
+COPY src/ ./src/
 
-RUN dotnet publish api/src/PlantWatery.Api -c Release -p:InformationalVersion=${informationalversion} -o /app 
+RUN dotnet publish src/PlantWatery.Api -c Release -p:InformationalVersion=${informationalversion} -o /app 
 
 FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS final
 
