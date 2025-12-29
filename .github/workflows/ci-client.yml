@@ -1,0 +1,22 @@
+name: PlantWatery Client CI
+
+on:
+  push:
+    branches: ["**"]
+    paths:
+      - "client/**"
+      - ".github/workflows/ci-client.yml"
+  pull_request:
+    branches: ["**"]
+    paths:
+      - "client/**"
+      - ".github/workflows/ci-client.yml"
+
+jobs:
+  build:
+    uses: ./.github/workflows/templates/docker-build-and-push.yml
+    secrets: inherit
+    with:
+      image_name: plantwatery-client
+      context: client
+      dockerfile: client/Dockerfile
