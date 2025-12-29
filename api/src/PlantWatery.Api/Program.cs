@@ -1,7 +1,10 @@
-using PlantWatery.Api.Common;
+using PlantWatery.Api.Common.Hosting;
+using PlantWatery.Api.Endpoints;
 
-var builder = PmoApi.CreateBuilder(args);
+var builder = WebApiBuilder.CreateBuilder(args);
 
-var app = builder.BuildPmoApi();
+var app = builder.BuildWebApi();
+
+app.MapEndpoints();
 
 await app.RunAsync();

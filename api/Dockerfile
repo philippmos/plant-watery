@@ -1,17 +1,14 @@
-FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
-WORKDIR /app
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS builder
+ARG informationalversion=unpublished
 
-COPY . ./
+COPY api/src/. api/src/
 
-RUN dotnet restore
+RUN dotnet publish api/src/PlantWatery.Api -c Release -p:InformationalVersion=${informationalversion} -o /app 
 
-RUN dotnet publish -o out
-
-FROM mcr.microsoft.com/dotnet/aspnet:9.0
+FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS final
 
 WORKDIR /app
-COPY --from=build /app/out .
-
-EXPOSE 8080
-
+COPY --from=builder app/ .
+EXPOSE 80
+EXPOSE 9090
 ENTRYPOINT ["dotnet", "PlantWatery.Api.dll"]

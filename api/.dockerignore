@@ -5,3 +5,6 @@
 **/*.orig
 **/*.dbmdl
 **/*.jfm
+**/bruno/
+**/appsettings.json
+**/secrets.example.json
