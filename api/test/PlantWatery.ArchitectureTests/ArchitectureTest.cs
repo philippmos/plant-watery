@@ -7,7 +7,7 @@ namespace PlantWatery.ArchitectureTests;
 
 public abstract class ArchitectureTest
 {
-    protected static Assembly ApiLayer => typeof(Api.Common.ApiControllerBase).Assembly;
+    protected static Assembly ApiLayer => typeof(Api.DependencyInjection).Assembly;
     protected static Assembly ApplicationLayer => typeof(Application.DependencyInjection).Assembly;
     protected static Assembly InfrastructureLayer => typeof(Infrastructure.DependencyInjection).Assembly;
     protected static Assembly DomainLayer => typeof(Domain.Interfaces.Services.IPlantService).Assembly;

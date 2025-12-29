@@ -1,6 +1,6 @@
 using PlantWatery.Domain.Dtos;
 
-namespace PlantWatery.Api.Controllers.Plants.Response;
+namespace PlantWatery.Api.Endpoints.Plants.Response;
 
 public record PlantOverviewResponse(
     Guid Id,
