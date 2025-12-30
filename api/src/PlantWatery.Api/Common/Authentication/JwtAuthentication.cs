@@ -23,7 +23,7 @@ public static class JwtAuthentication
                 options.TokenValidationParameters = new()
                 {
                     ValidateIssuer = true,
-                    ValidateAudience = true,
+                    ValidateAudience = false,
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
                     ValidTypes = ["JWT", "at+jwt"],

@@ -92,6 +92,7 @@ public static class Endpoints
         .Produces<string>(400);
 
         return groupBuilder
-            .RequireRateLimiting(RateLimiting.PolicyNames.Fixed);
+            .RequireRateLimiting(RateLimiting.PolicyNames.Fixed)
+            .RequireAuthorization();
     }
 }

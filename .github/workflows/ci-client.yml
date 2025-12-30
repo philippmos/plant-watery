@@ -2,10 +2,12 @@ name: PlantWatery Client CI
 
 on:
   push:
-    branches: ["**"]
+    branches: ["main"]
     paths:
       - "client/**"
       - ".github/workflows/ci-client.yml"
+      - ".github/workflows/docker-build-and-push-template.yml"
+
   pull_request:
     branches: ["**"]
     paths:
@@ -16,6 +18,7 @@ jobs:
   build:
     permissions:
       contents: read
+
     uses: ./.github/workflows/docker-build-and-push-template.yml
     secrets: inherit
     with:
