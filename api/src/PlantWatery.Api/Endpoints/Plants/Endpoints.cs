@@ -64,7 +64,7 @@ public static class Endpoints
 
 
         // POST v1/plants/{plantId}/waterings
-        groupBuilder.MapPost("/{plantId:Guid}", async Task<IResult> (
+        groupBuilder.MapPost("/{plantId:Guid}/waterings", async Task<IResult> (
             [FromRoute] Guid plantId,
             [FromBody] CreateWateringRequest request,
             CancellationToken cancellationToken,
