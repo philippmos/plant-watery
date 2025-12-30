@@ -17,7 +17,7 @@ public static class RateLimiting
             options.AddPolicy(PolicyNames.Fixed, context =>
                 CreateFixedWindowRateLimitPartition(
                     context,
-                    permitLimit: 1000,
+                    permitLimit: 100,
                     window: TimeSpan.FromMinutes(1)));
 
             options.OnRejected = OnRateLimitingRejected;
