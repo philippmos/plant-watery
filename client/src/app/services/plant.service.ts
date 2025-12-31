@@ -2,16 +2,18 @@ import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { PlantOverview } from '../interfaces/plant-overview';
-import { environment as env } from '../../environments/environment';
 import { PlantDetail } from '../interfaces/plant-detail';
 import { CreateWateringRequest } from '../interfaces/create-watering-request';
 import { PlantError } from '../interfaces/error';
 import { AuthService } from '@auth0/auth0-angular';
+import { APP_CONFIGURATION } from '../config/configuration';
+import { AppConfig } from '../config/interfaces/app-config';
 
 @Injectable({ providedIn: 'root' })
 export class PlantService {
     private readonly http = inject(HttpClient);
-    private readonly plantApiUrl = env.plantApiUrl;
+    private readonly config = inject<AppConfig>(APP_CONFIGURATION);
+    private readonly plantApiUrl = this.config.plantApiUrl || this.config.backendApiUrl;
     private readonly auth = inject(AuthService);
     
     private _plants = signal<PlantOverview[]>([]);
