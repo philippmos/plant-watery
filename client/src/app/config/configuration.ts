@@ -11,7 +11,8 @@ function trimTrailingSlash(url?: string): string {
 }
 
 export async function loadAppConfiguration(): Promise<AppConfig> {
-  const configUrl = '/configuration.json';
+  const hourlyStamp = Math.floor(Date.now() / (60 * 60 * 1000));
+  const configUrl = `/configuration.json?v=${hourlyStamp}`;
   const response = await fetch(configUrl, { cache: 'no-cache' });
   if (!response.ok) {
     throw new Error(`Failed to load configuration (${response.status})`);
