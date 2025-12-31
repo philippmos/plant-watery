@@ -45,6 +45,7 @@ public static class WebApiBuilder
             {
                 headersOptions.ForwardedHeaders = ForwardedHeaders.All;
                 headersOptions.KnownProxies.Clear();
+                headersOptions.KnownIPNetworks.Clear();
             }
         );
 

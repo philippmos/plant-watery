@@ -24,9 +24,12 @@ public static class DependencyInjection
     {
         services.Configure<ForwardedHeadersOptions>(options =>
         {
-            options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+            options.ForwardedHeaders = ForwardedHeaders.XForwardedFor |
+                                       ForwardedHeaders.XForwardedProto |
+                                       ForwardedHeaders.XForwardedHost;
 
             options.KnownProxies.Clear();
+            options.KnownIPNetworks.Clear();
 
             // True-Client-IP header is set by Akamai
             if (environment.IsProduction())
