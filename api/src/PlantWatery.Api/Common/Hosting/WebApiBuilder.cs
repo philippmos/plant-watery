@@ -19,15 +19,13 @@ public static class WebApiBuilder
     {
         var builder = WebApplication.CreateBuilder(new WebApplicationOptions { Args = args });
 
-        builder.Services.AddApi(builder.Environment);
-        builder.Services.AddApplicationLayer();
-        builder.Services.AddInfrastructureLayer();
-
-        builder.Services.SetupCorsHandling(builder.Configuration);
-
         builder.Services.AddHttpContextAccessor();
 
         builder.Configuration.ConfigureSecretSources();
+
+        builder.Services.SetupCorsHandling(builder.Configuration);
+
+        Log.Logger = LogConfiguration.SetupLoggerConfiguration(builder);
 
         builder.Services.AddSingleton<ILogEventEnricher, CorrelationIdEnricher>();
 
@@ -35,17 +33,19 @@ public static class WebApiBuilder
 
         builder.Services.AddJwtAuthentication(builder.Configuration);
 
-        Log.Logger = LogConfiguration.SetupLoggerConfiguration(builder);
+        builder.Services.AddApi(builder.Environment);
+        builder.Services.AddApplicationLayer();
+        builder.Services.AddInfrastructureLayer();
 
         builder.Services.AddOptions<PortsOptions>()
-          .BindConfiguration(PortsOptions.Ports);
+                        .BindConfiguration(PortsOptions.Ports);
 
         builder.Services.Configure<ForwardedHeadersOptions>(
-          headersOptions =>
-          {
-              headersOptions.ForwardedHeaders = ForwardedHeaders.All;
-              headersOptions.KnownProxies.Clear();
-          }
+            headersOptions =>
+            {
+                headersOptions.ForwardedHeaders = ForwardedHeaders.All;
+                headersOptions.KnownProxies.Clear();
+            }
         );
 
         builder.Services.AddSingleton<ForwardedPrefixMiddleware>();
