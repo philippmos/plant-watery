@@ -15,7 +15,7 @@ public record PlantDetailResponse(
             dto.Id,
             dto.Title,
             dto.ImageUrl,
-            dto.LocationName,
+            dto.RoomName,
             dto.WateringIntervalInDays,
             dto.WateringEvents.Select(WateringEventPlantOverviewResponse.FromDto) ?? []);
 }

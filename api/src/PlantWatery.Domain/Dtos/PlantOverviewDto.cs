@@ -6,7 +6,7 @@ public record PlantOverviewDto(
     Guid Id,
     string Title,
     string ImageUrl,
-    string LocationName,
+    string RoomName,
     DateTime? LastWateredDateTime = null,
     int? WateringIntervalInDays = null)
 {
@@ -15,7 +15,7 @@ public record PlantOverviewDto(
             entity.Id,
             entity.Title,
             entity.ImageUrl,
-            entity.Location.Title,
+            entity.Room.Title,
             entity.WateringEvents?.OrderByDescending(x => x.DateTime).FirstOrDefault()?.DateTime,
             entity.WateringInterval?.IntervalInDays);
 }

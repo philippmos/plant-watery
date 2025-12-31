@@ -7,8 +7,9 @@ public class DatabaseContext(
     DbContextOptions<DatabaseContext> contextOptions) 
     : DbContext(contextOptions)
 {
+    public DbSet<HomeEntity> Homes { get; set; }
     public DbSet<PlantEntity> Plants { get; set; }
-    public DbSet<LocationEntity> Locations { get; set; }
+    public DbSet<RoomEntity> Rooms { get; set; }
     public DbSet<WateringEventEntity> WateringEvents { get; set; }
     public DbSet<WateringIntervalEntity> WateringIntervals { get; set; }
     public DbSet<UserEntity> Users { get; set; }
@@ -16,6 +17,16 @@ public class DatabaseContext(
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<RoomEntity>()
+            .HasOne(r => r.Home)
+            .WithMany(h => h.Rooms)
+            .HasForeignKey(r => r.HomeId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<UserEntity>()
+            .HasMany(u => u.Homes)
+            .WithMany(h => h.Users);
 
         modelBuilder.Entity<PlantEntity>()
             .HasOne(p => p.WateringInterval)

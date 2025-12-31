@@ -15,7 +15,7 @@ public record PlantOverviewResponse(
             dto.Id,
             dto.Title,
             dto.ImageUrl,
-            dto.LocationName,
+            dto.RoomName,
             dto.LastWateredDateTime,
             dto.WateringIntervalInDays);
 }

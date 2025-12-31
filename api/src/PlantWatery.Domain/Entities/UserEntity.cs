@@ -7,5 +7,5 @@ public class UserEntity : BaseEntity
     [Required]
     public string IdpSub { get; set; } = string.Empty;
 
-    public virtual IEnumerable<PlantEntity>? Plants { get; set; }
+    public virtual ICollection<HomeEntity> Homes { get; set; } = [];
 }
