@@ -5,6 +5,8 @@ var builder = WebApiBuilder.CreateBuilder(args);
 
 var app = builder.BuildWebApi();
 
+await app.ApplyDatabaseMigrationsAsync();
+
 app.MapEndpoints();
 
 await app.RunAsync();
