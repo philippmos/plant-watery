@@ -121,9 +121,9 @@ public static class WebApiBuilder
 
     private static IConfigurationManager ConfigureSecretSources(this IConfigurationManager configuration)
     {
-        configuration.AddKeyPerFile("/mnt/secrets-store", optional: true, reloadOnChange: true);
-
         configuration.AddEnvironmentVariables();
+
+        configuration.AddKeyPerFile("/run/secrets", optional: true, reloadOnChange: true);
 
         return configuration;
     }
