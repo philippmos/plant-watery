@@ -1,5 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
+import { APP_CONFIGURATION } from '../../../config/configuration';
+import { AppConfig } from '../../../config/interfaces/app-config';
 import { ButtonComponent } from '../../shared/ui';
 
 @Component({
@@ -10,11 +12,12 @@ import { ButtonComponent } from '../../shared/ui';
 })
 export class AuthButtonComponent {
   private auth: AuthService = inject(AuthService);
+  private readonly config = inject<AppConfig>(APP_CONFIGURATION);
 
   protected loginWithRedirect() {
     this.auth.loginWithRedirect({
       authorizationParams: {
-        audience: 'http://plant-watery.local',
+        ...this.config.auth.authorizationParams,
       }
     });
   }
