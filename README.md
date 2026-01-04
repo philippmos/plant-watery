@@ -2,6 +2,17 @@
 
 Plant Watery is an application designed to help you track and manage the watering habits of your plants. With this tool, you will never forget to water your plants or risk overwatering them again. The app allows you to log each watering event, monitor your plants' needs, and receive reminders to ensure optimal plant health.
 
+## Interface Preview
+
+Quick glimpse of the app surface:
+
+<div style="display:flex; gap:16px; flex-wrap:wrap;"> 
+  <img src="docs/images/plant-overview.jpeg" alt="Plant overview" width="500" />
+  <img src="docs/images/dashboard.jpeg" alt="Dashboard" width="500" />
+  <img src="docs/images/plant-detail.jpeg" alt="Plant detail" width="500" />
+</div>
+
+
 ## Architecture
 
 Plant Watery is built with a modern, modular architecture:
