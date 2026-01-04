@@ -1,3 +1,4 @@
+using System.Text.Json;
 using System.Text.Json.Serialization;
 using Asp.Versioning;
 using Asp.Versioning.ApiExplorer;
@@ -112,7 +113,7 @@ public static class DependencyInjection
 
         services.ConfigureHttpJsonOptions(options =>
         {
-            options.SerializerOptions.PropertyNamingPolicy = null;
+            options.SerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
             options.SerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
             options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
         });
