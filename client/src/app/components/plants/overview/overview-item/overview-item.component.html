@@ -1,7 +1,9 @@
 <app-card variant="emerald" [padding]="'none'" [hoverable]="true" [shadow]="'xl'">
     <div class="group overflow-hidden flex flex-col h-full transition-all duration-300 ease-in-out hover:scale-[1.02]">
         <div class="relative overflow-hidden rounded-t-xl">
-            <img [src]="data.imageUrl" alt="" class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105">
+            @if (data.imageUrl) {
+                <img [src]="data.imageUrl" alt="" class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105">
+            }
             <div class="absolute inset-0 bg-gradient-to-t from-emerald-900/80 via-emerald-900/20 to-transparent"></div>
             <div class="absolute bottom-0 left-0 right-0 p-4">
                 <app-badge variant="primary" [pill]="true">
