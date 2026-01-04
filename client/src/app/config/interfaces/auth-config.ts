@@ -9,4 +9,5 @@ export interface AuthConfig {
 
 export interface AuthorizationParams {
   audience?: string;
+  redirect_uri: string;
 }

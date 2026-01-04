@@ -4,7 +4,8 @@
     "domain": "{DOMAIN}",
     "clientId": "{CLIENT_ID}",
     "authorizationParams": {
-      "audience": "{AUDIENCE}"
+      "audience": "{AUDIENCE}",
+      "redirect_uri": "http://localhost:4200"
     },
     "apiUri": "http://localhost:3001",
     "appUri": "http://localhost:4200",

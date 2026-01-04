@@ -35,11 +35,12 @@ export async function loadAppConfiguration(): Promise<AppConfig> {
   };
 
   const audience = auth.authorizationParams?.audience;
+  const redirect_uri = auth.authorizationParams?.redirect_uri;
   const allowedList = backendApiUrl
     ? [
         {
           uri: `${backendApiUrl}/*`,
-          tokenOptions: audience ? { authorizationParams: { audience } } : undefined
+          tokenOptions: audience ? { authorizationParams: { audience, redirect_uri } } : undefined
         }
       ]
     : [];
